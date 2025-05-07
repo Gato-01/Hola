@@ -1,32 +1,33 @@
-
-  <!-- Contenedor general -->
-  <div class="container">
-    <!-- Sidebar (Columna izquierda) -->
-    <div class="sidebar">
-      <h3>Categorías</h3>
-      <ul>
-        <li>Ropa</li>
-        <li>Electrónica</li>
-        <li>Hogar</li>
-        <li>Carrito 🛒: {{numeroProductos}}</li>
+<div class="container">
+  <!-- Barra lateral compacta -->
+  <div class="mini-sidebar">
+    <div class="sidebar-content">
+      <h3 class="sidebar-title">🛍️</h3>
+      <ul class="sidebar-menu">
+        <li class="menu-item" title="Ropa">👗</li>
+        <li class="menu-item" title="Electrónica">📱</li>
+        <li class="menu-item" title="Hogar">🏠</li>
+        <li class="menu-item cart-item" title="Carrito">🛒<span class="badge">{{numeroProductos}}</span></li>
       </ul>
     </div>
-  
-    <!-- Galería de productos (4 columnas) -->
+  </div>
+
+  <!-- Contenido Principal con Scroll -->
+  <div class="main-content">
     <div class="products-grid">
-        <app-producto 
+      <app-producto 
         [product]="product"
         *ngFor="let product of visibleProducts" 
         (agregar)="agregarAlCarrito($event)"
         (eliminarProducto)="eliminarProductoDelCarrito($event)">
-        </app-producto>
+      </app-producto>
     </div>
 
     <div class="load-more">
-        <button *ngIf="productsToShow < products.length" (click)="showMore()">Ver más</button>
+      <button *ngIf="productsToShow < products.length" (click)="showMore()">Ver más</button>
     </div>
   </div>
-
+</div>
 
 <!-- Enviamos el producto al componente hijo (producto)
 significa que cuando ProductoComponent emita un evento,
