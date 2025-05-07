@@ -4,9 +4,11 @@ import { CarritoComponent } from './components/carrito/carrito.component';
 import { SesionComponent } from './components/sesion/sesion.component';
 import { ProductoComponent } from './components/producto/producto.component';
 import { HomeComponent } from './components/home/home.component';
+import { NavComponent } from './components/nav/nav.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'nav', component: NavComponent },
   { path: 'carrito', component: CarritoComponent },
   { path: 'sesion', component: SesionComponent },
   { path: 'producto', component: ProductoComponent },
