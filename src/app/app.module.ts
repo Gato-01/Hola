@@ -8,9 +8,10 @@ import { ProductoComponent } from './components/producto/producto.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { NavComponent } from './components/nav/nav.component';
-import { SesionComponent } from './components/sesion/sesion.component';
+import { SesionComponent } from './components/gestionCuenta/sesion/sesion.component';
 import { HomeComponent } from './components/home/home.component';
 import { CarritoProductoComponent } from './components/carrito-producto/carrito-producto.component';
+import { RegistroComponent } from './components/gestionCuenta/registro/registro.component';
 // import { HttpClient } from '@angular/common/http'
 
 @NgModule({
@@ -21,7 +22,8 @@ import { CarritoProductoComponent } from './components/carrito-producto/carrito-
     NavComponent,
      SesionComponent,
      HomeComponent,
-     CarritoProductoComponent
+     CarritoProductoComponent,
+     RegistroComponent
   ],
   imports: [
     BrowserModule,

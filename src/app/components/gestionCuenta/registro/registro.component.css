@@ -1,0 +1,22 @@
+/* Asegúrate de importar Bootstrap en angular.json o en styles.scss */
+
+/* Ajustes opcionales */
+.vh-100 {
+height: 100vh;
+}
+
+.card {
+border: none;
+border-radius: 0.75rem;
+}
+
+.btn-outline-secondary i.bi-google {
+color: #dd4b39; /* ícono de Google rojo */
+}
+
+hr {
+border: none;
+height: 1px;
+background-color: #dee2e6;
+}
+  
