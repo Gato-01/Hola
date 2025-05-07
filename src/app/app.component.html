@@ -1,15 +1,7 @@
 <!-- Navbar -->
-<nav class="navbar">
-  <div class="logo">
-    <span>🛍️ TiendaTop</span>
-  </div>
-  <div class="nav-items">
-    <a routerLink="/" class="nav-link">Inicio</a>
-    <a routerLink="/sesion" class="nav-link">Iniciar Sesion</a>
-    <a routerLink="/productos" class="nav-link">Productos</a>
-    <a routerLink="/carrito" class="nav-link">Carrito ({{ cartCount }})</a>
-  </div>
-</nav>
+ <app-nav></app-nav>
+ <router-outlet></router-outlet>
+
 
 <!-- Hero Section -->
 <section class="hero">
@@ -23,7 +15,6 @@
   </div>
 </section>
 
-<router-outlet></router-outlet>
 
 <!-- Categories Grid -->
 <section class="categories">
