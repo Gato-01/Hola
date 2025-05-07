@@ -1,7 +1,16 @@
 <!-- Navbar -->
- <app-nav></app-nav>
- <router-outlet></router-outlet>
-
+<nav class="navbar">
+  <div class="logo">
+    <span>🛍️ TiendaTop</span>
+  </div>
+  <div class="nav-items">
+    <a routerLink="/home" class="nav-link">Inicio</a>
+    <a routerLink="/productos" class="nav-link">Productos</a>
+    <a routerLink="/carrito" class="nav-link">Carrito</a>
+    <a routerLink="/sesion" class=" nav-link"><strong>Iniciar Sesion</strong></a>
+    <a routerLink="/sesion" class="nav-link"><strong>Registrarse</strong></a>
+  </div>
+</nav>
 
 <!-- Hero Section -->
 <section class="hero">
@@ -15,9 +24,12 @@
   </div>
 </section>
 
+<router-outlet></router-outlet>
+
+
 
 <!-- Categories Grid -->
-<section class="categories">
+<!-- <section class="categories">
   <h2>Categorías Populares</h2>
   <div class="categories-grid">
     <div class="category-card" *ngFor="let category of categories">
@@ -25,10 +37,10 @@
       <h3>{{ category.name }}</h3>
     </div>
   </div>
-</section>
+</section> -->
 
 <!-- Featured Products -->
-<section class="featured-products">
+<!-- <section class="featured-products">
   <h2>Productos Destacados</h2>
   <div class="products-grid">
     <div class="product-card" *ngFor="let product of featuredProducts">
@@ -38,7 +50,7 @@
       <button class="add-to-cart" (click)="addToCart(product)">🛒 Añadir</button>
     </div>
   </div>
-</section>
+</section> -->
 
 
 

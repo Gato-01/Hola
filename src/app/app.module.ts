@@ -6,9 +6,10 @@ import { AppComponent } from './app.component';
 import { ProductoComponent } from './components/producto/producto.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { CarritoComponent } from './carrito/carrito.component';
-import { NavComponent } from './nav/nav.component';
-import { SesionComponent } from './sesion/sesion.component';
+import { CarritoComponent } from './components/carrito/carrito.component';
+import { NavComponent } from './components/nav/nav.component';
+import { SesionComponent } from './components/sesion/sesion.component';
+import { HomeComponent } from './components/home/home.component';
 // import { HttpClient } from '@angular/common/http'
 
 @NgModule({
@@ -17,7 +18,8 @@ import { SesionComponent } from './sesion/sesion.component';
     ProductoComponent,
     CarritoComponent,
     NavComponent,
-     SesionComponent
+     SesionComponent,
+     HomeComponent
   ],
   imports: [
     BrowserModule,

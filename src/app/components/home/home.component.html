@@ -1,0 +1,23 @@
+<!-- Categories Grid -->
+<section class="categories">
+  <h2>Categorías Populares</h2>
+  <div class="categories-grid">
+    <div class="category-card" *ngFor="let category of categories">
+      <img [src]="category.image" alt="{{ category.name }}">
+      <h3>{{ category.name }}</h3>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products -->
+<section class="featured-products">
+  <h2>Productos Destacados</h2>
+  <div class="products-grid">
+    <div class="product-card" *ngFor="let product of featuredProducts">
+      <img [src]="product.image" alt="{{ product.name }}">
+      <h3>{{ product.name }}</h3>
+      <p class="price">{{ product.price | currency }}</p>
+      <button class="add-to-cart" (click)="addToCart(product)">🛒 Añadir</button>
+    </div>
+  </div>
+</section>
