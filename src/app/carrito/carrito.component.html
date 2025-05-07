@@ -1,0 +1,34 @@
+ 
+  <!-- Contenedor general -->
+  <div class="container">
+    <!-- Sidebar (Columna izquierda) -->
+    <div class="sidebar">
+      <h3>Categorías</h3>
+      <ul>
+        <li>Ropa</li>
+        <li>Electrónica</li>
+        <li>Hogar</li>
+        <li>Deportes</li>
+        <li>Carrito 🛒: {{numeroProductos}}</li>
+      </ul>
+    </div>
+  
+    <!-- Galería de productos (4 columnas) -->
+    <div class="products-grid">
+        <app-producto 
+        [product]="product"
+        *ngFor="let product of visibleProducts" 
+        (agregar)="agregarAlCarrito($event)"
+        (eliminarProducto)="eliminarProductoDelCarrito($event)">
+        </app-producto>
+    </div>
+
+    <div class="load-more">
+        <button *ngIf="productsToShow < products.length" (click)="showMore()">Ver más</button>
+    </div>
+  </div>
+
+
+<!-- Enviamos el producto al componente hijo (producto)
+significa que cuando ProductoComponent emita un evento,
+ AppComponent ejecutará agregarAlCarrito() con ese producto. -->
