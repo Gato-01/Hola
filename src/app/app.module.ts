@@ -10,6 +10,7 @@ import { CarritoComponent } from './components/carrito/carrito.component';
 import { NavComponent } from './components/nav/nav.component';
 import { SesionComponent } from './components/sesion/sesion.component';
 import { HomeComponent } from './components/home/home.component';
+import { CarritoProductoComponent } from './components/carrito-producto/carrito-producto.component';
 // import { HttpClient } from '@angular/common/http'
 
 @NgModule({
@@ -19,7 +20,8 @@ import { HomeComponent } from './components/home/home.component';
     CarritoComponent,
     NavComponent,
      SesionComponent,
-     HomeComponent
+     HomeComponent,
+     CarritoProductoComponent
   ],
   imports: [
     BrowserModule,
