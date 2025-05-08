@@ -1,13 +1,14 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '../../models/product.model';
 
-@Component({
+@Component({ 
   selector: 'app-producto',
   standalone: false,
   templateUrl: './producto.component.html',
   styleUrl: './producto.component.css'
 })
 export class ProductoComponent {
+
   // @Input() product: Product = { // Metodo 1 para importar todo el producto, la interfaz
   //   title: '',
   //   price: 0,
@@ -17,18 +18,23 @@ export class ProductoComponent {
 
   @Input() product!: Product; // Recibe los productos
   @Output() agregar = new EventEmitter<Product>(); // Evento para enviar datos
-  @Output() eliminarProducto = new EventEmitter<number>(); 
+  @Output() recordarProducto = new EventEmitter<Product>();
+  @Output() eliminarProducto = new EventEmitter<number>();
 
   agregarAlCarrito() {
     this.agregar.emit(this.product); // Envía el producto al padre
     alert(`¡${this.product.title} agregado al carrito!`);
   }
 
-  eliminarProductoDelCarrito() {
-    this.eliminarProducto.emit(this.product.id);
-    alert(`¡${this.product.title} eliminando del carrito!`);
+  agregarAlRecordatorio() {
+    this.recordarProducto.emit(this.product);
+    alert(`¡${this.product.title} se agrego al recordatorio!`);
   }
 
+  eliminarDelCarrito() { // NO ESTÁ EN USO PRACTICO DE MOMENTO
+    this.eliminarProducto.emit(this.product.id);
+    alert(`¡${this.product.title} se agrego al recordatorio!`);
+  }
 
   isValidUrl(url: string): boolean {
     try {
@@ -38,5 +44,4 @@ export class ProductoComponent {
       return false;
     }
   }
-  
 }

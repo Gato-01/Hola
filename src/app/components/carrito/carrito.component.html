@@ -1,31 +1,49 @@
-<div class="container">
-  <!-- Barra lateral compacta -->
-  <div class="mini-sidebar">
-    <div class="sidebar-content">
-      <h3 class="sidebar-title">🛍️</h3>
-      <ul class="sidebar-menu">
-        <li class="menu-item" title="Ropa">👗</li>
-        <li class="menu-item" title="Electrónica">📱</li>
-        <li class="menu-item" title="Hogar">🏠</li>
-        <li class="menu-item cart-item" title="Carrito">🛒<span class="badge">{{numeroProductos}}</span></li>
-      </ul>
+<!-- Modal de recordatorios -->
+<button class="fab" (click)="toggleReminder()">
+  🔔
+</button>
+<div class="reminder-panel" [class.show]="showReminder">
+  <h4>Recordatorio</h4>
+  <div class="reminder-grid">
+    <div class="reminder-card" *ngFor="let p of reminders">
+      <img [src]="p.images" alt="{{p.title}}">
+      <div class="info">
+        <span class="name">{{ p.title }}</span>
+        <span class="price">{{ p.price | currency }}</span>
+        <span (click)="eliminarDelRecordatorio(p)" class="icon-recordado">🔻</span>
+      </div>
     </div>
+    <p *ngIf="reminders.length === 0" class="empty">No tienes recordatorios</p>
+  </div>
+</div>
+
+<!-- Contenedor general -->
+<div class="container">
+  <!-- Sidebar (Columna izquierda de navegación) -->
+  <div class="sidebar">
+    <h3>Categorías</h3>
+    <ul>
+      <li>👗 Ropa</li>
+      <li>📱 Electrónica</li>
+      <li>🏠 Hogar</li>
+      <li>⚽ Deportes</li>
+      <li>🛒 Carrito {{numeroProductos}}</li>
+    </ul>
   </div>
 
-  <!-- Contenido Principal con Scroll -->
-  <div class="main-content">
-    <div class="products-grid">
-      <app-producto 
-        [product]="product"
-        *ngFor="let product of visibleProducts" 
-        (agregar)="agregarAlCarrito($event)"
-        (eliminarProducto)="eliminarProductoDelCarrito($event)">
-      </app-producto>
-    </div>
+  <!-- Galería de productos (4 columnas) -->
+  <div class="products-grid">
+    <app-producto 
+    [product]="product"
+    *ngFor="let product of visibleProducts" 
+    (agregar)="agregarAlCarrito($event)"
+    (recordarProducto)="agregarAlRecordatorio($event)"
+    (eliminarProducto)="eliminarProductoDelCarrito($event)">
+    </app-producto>
+  </div>
 
-    <div class="load-more">
-      <button *ngIf="productsToShow < products.length" (click)="showMore()">Ver más</button>
-    </div>
+  <div class="load-more">
+    <button *ngIf="productsToShow < products.length" (click)="showMore()">Ver más</button>
   </div>
 </div>
 

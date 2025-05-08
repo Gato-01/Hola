@@ -1,112 +1,22 @@
-/* sesion.component.css */
-.login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    min-height: 100vh;
-    background: linear-gradient(135deg, #673ab7 0%, #512da8 100%);
-    padding: 2rem;
-  }
-  
-  .login-card {
-    background: white;
-    border-radius: 20px;
-    padding: 2.5rem;
-    width: 100%;
-    max-width: 450px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    animation: slideUp 0.5s ease;
-  }
-  
-  .login-header {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-  
-  .login-header h1 {
-    color: #2d2d2d;
-    margin-bottom: 0.5rem;
-    font-size: 1.8rem;
-  }
-  
-  .login-header p {
-    color: #666;
-  }
-  
-  .login-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  
-  .login-button {
-    padding: 12px;
-    font-size: 1.1rem;
-    margin-top: 1rem;
-  }
-  
-  .login-links {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1.5rem;
-  }
-  
-  .login-links a {
-    color: #673ab7;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.3s ease;
-  }
-  
-  .login-links a:hover {
-    color: #512da8;
-  }
-  
-  .social-login {
-    margin-top: 2rem;
-    text-align: center;
-  }
-  
-  .social-login p {
-    color: #666;
-    margin-bottom: 1rem;
-  }
-  
-  .social-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-  }
-  
-  .google-btn, .facebook-btn {
-    border-radius: 8px;
-    padding: 8px 20px;
-  }
-  
-  .google-btn img, .facebook-btn img {
-    width: 20px;
-    margin-right: 8px;
-  }
-  
-  @keyframes slideUp {
-    from {
-      transform: translateY(20px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 480px) {
-    .login-card {
-      padding: 1.5rem;
-      border-radius: 15px;
-    }
-    
-    .login-header h1 {
-      font-size: 1.5rem;
-    }
-  }
+/* Altura completa de pantalla */
+.vh-100 {
+  height: 100vh;
+}
+
+/* Ajustes de la tarjeta */
+.card {
+  border: none;
+  border-radius: 0.75rem;
+}
+
+/* Estilo para la línea separadora */
+hr {
+  border: none;
+  height: 1px;
+  background-color: #dee2e6;
+}
+
+/* Icono de Google (usa Bootstrap Icons) */
+.btn-outline-secondary .bi-google {
+  color: #dd4b39;
+}

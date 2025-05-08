@@ -1,222 +1,214 @@
+
+/* ***************** */
+/* ESTILOS GENERALES */
+/* ***************** */
+
+body {
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 0;
+display: flex;
+flex-direction: column;
+height: 100vh;
+}
+
+/* ******************** */
+/* CONTENEDOR PRINCIPAL */
+/* ******************** */
+
+.container {
+display: grid;
+grid-template-columns: 1fr 4fr; /* Sidebar 1fr, productos 4fr */
+gap: 20px;
+padding: 20px;
+}
+
+/* *************************** */
+/* BARRA DE NAVEGACIÓN LATERAL */
+/* *************************** */
+
 .sidebar {
-  width: 250px;
-  background: #ffffff;
+  background-color: #ffffff;
   padding: 20px;
+  min-height: 100vh;
+  border-radius: 10px;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-  position: fixed;
-  left: 0;
-  height: calc(100vh - 60px);
-  overflow-y: auto;
-  font-size: 1.1rem; /* Tamaño base aumentado */
-  }
-  
-  .sidebar h3 {
-    color: #673ab7;
-  margin-bottom: 1.5rem;
-  font-size: 1.6rem; /* Aumentado de 1.4rem */
-  border-bottom: 2px solid #eee;
-  padding-bottom: 10px;
-  }
-  
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .sidebar li {
-    padding: 12px 15px;
-  margin: 8px 0;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  color: #444;
-  font-size: 1.1rem; /* Añadido tamaño de fuente */
-  }
-  
-  .sidebar li:hover {
-    background: #f3e5f5;
-    transform: translateX(5px);
-  }
-  
-  .sidebar li:last-child {
-    background: #fff3e0;
-    color: #ef6c00;
-    font-weight: 600;
-    margin-top: 20px;
-    font-size: 1.2rem;
-  }
-
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 25px;
-    padding: 20px;
-    margin-left: 270px; /* Ancho del sidebar + 20px */
-  }
-  
-  .load-more {
-    text-align: center;
-    margin: 30px 0;
-    margin-left: 270px;
-  }
-  
-  .load-more button {
-    background: #673ab7;
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 25px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-  }
-  
-  .load-more button:hover {
-    background: #512da8;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  }
-
-  .mini-sidebar {
-    width: 70px;  
-    font-size: 1.2rem;  
-  }
-  
-  .mini-sidebar:hover {
-    width: 220px;  
-  }
-  
-  .menu-item::after {
-    font-size: 1rem;  
-  }
-  
-  .badge {
-    font-size: 0.9rem;  
-    padding: 3px 10px;  
-  }
-  
- 
-  .main-content {
-    margin-left: 90px;  
-    transition: margin 0.3s ease;
-  }
-  
-  .mini-sidebar:hover ~ .main-content {
-    margin-left: 240px;  
-  }
-  
- 
-  @media (max-width: 768px) {
-    .sidebar {
-      font-size: 1rem;  
-    }
-    
-    .mini-sidebar {
-      width: 60px;
-      font-size: 1.1rem;
-    }
-    
-    .main-content {
-      margin-left: 80px;
-    }
-  }
-  
- 
-.mini-sidebar {
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 60px;
-  background: #2c3e50;
-  color: white;
-  transition: all 0.3s ease;
-  z-index: 1000;
-  overflow: hidden;
+  font-size: 1.1rem;
 }
 
-.mini-sidebar:hover {
-  width: 200px;
-  box-shadow: 2px 0 15px rgba(0,0,0,0.2);
+.sidebar h3 {
+color: #000000;
+margin-bottom: 1.5rem;
+font-size: 1.6rem; /* Aumentado de 1.4rem */
+border-bottom: 2px solid #eee;
+padding-bottom: 10px;
 }
 
-.sidebar-content {
-  padding: 20px 10px;
-}
-
-.sidebar-title {
-  font-size: 1.5rem;
-  margin-bottom: 30px;
-  text-align: center;
-}
-
-.sidebar-menu {
+.sidebar ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.menu-item {
+.sidebar li {
+padding: 12px 15px;
+margin: 8px 0;
+border-radius: 8px;
+cursor: pointer;
+transition: all 0.3s ease;
+color: #444;
+font-size: 1.1rem; /* Añadido tamaño de fuente */
+}
+
+.sidebar li:hover {
+  background: #f3e5f5;
+  transform: translateX(5px);
+}
+
+.sidebar li:last-child {
+  background: #e0eeff;
+  color: #000000;
+  font-weight: 600;
+  margin-top: 20px;
+  font-size: 1.1rem;
+}
+
+/* ******************** */
+/* GALERIA DE PRODUCTOS */
+/* ******************** */
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+  gap: 20px;
+}
+
+/* Estilos para cada producto */
+.card {
+  background: white;
   padding: 15px;
-  margin: 10px 0;
-  border-radius: 8px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+/* ************* */
+/* BOTON VER MÁS */
+/* ************* */
+
+.load-more {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.load-more button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
   cursor: pointer;
+  border-radius: 5px;
+}
+
+.load-more button:hover {
+  background-color: #0056b3;
+}
+
+/* ********************** */
+/* MODAL DE RECORDATORIOS */
+/* ********************** */
+
+.fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1.5rem;
   display: flex;
   align-items: center;
-  gap: 15px;
-  white-space: nowrap;
-  transition: all 0.2s ease;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.fab:hover {
+  background-color: #0056b3;
+  transform: scale(1.1);
 }
 
-.menu-item:hover {
-  background: #34495e;
+.reminder-panel {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 280px;
+  max-height: 350px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  overflow-y: auto;
+  transform: scale(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease;
+  padding: 0.5rem;
+  z-index: 1001;
+}
+.reminder-panel.show {
+  transform: scale(1);
+}
+.reminder-panel h4 {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  text-align: center;
+}
+.reminder-panel .icon-recordado {
+  cursor: pointer;
 }
 
-.menu-item::after {
-  content: attr(title);
-  font-size: 0.9rem;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.reminder-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
 }
-
-.mini-sidebar:hover .menu-item::after {
-  opacity: 1;
+.reminder-card {
+  background: #f8f9fa;
+  border-radius: 6px;
+  padding: 0.25rem;
+  text-align: center;
+  transition: background 0.2s;
 }
-
-.badge {
-  background: #e74c3c;
-  color: white;
-  padding: 2px 8px;
-  border-radius: 10px;
-  font-size: 0.8rem;
-  margin-left: auto;
+.reminder-card:hover {
+  background: #e2e6ea;
 }
-
-.main-content {
-  margin-left: 80px; /* Ancho de la barra + 20px */
-  padding: 20px;
-  transition: margin 0.3s ease;
+.reminder-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
 }
-
-/* Cuando la barra se expande */
-.mini-sidebar:hover ~ .main-content {
-  margin-left: 220px;
+.info {
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
 }
-
-/* Responsive */
-@media (max-width: 768px) {
-  .mini-sidebar {
-    width: 50px;
-  }
-  
-  .main-content {
-    margin-left: 70px;
-  }
-  
-  .menu-item {
-    padding: 12px;
-  }
+.empty {
+  text-align: center;
+  color: #666;
+  font-size: 0.85rem;
+  grid-column: span 2;
+  margin-top: 1rem;
 }
-  

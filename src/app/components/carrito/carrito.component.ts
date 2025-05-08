@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input, OnInit } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { HttpClient } from '@angular/common/http';
 
@@ -6,11 +6,20 @@ import { HttpClient } from '@angular/common/http';
   selector: 'app-carrito',
   standalone: false,
   templateUrl: './carrito.component.html',
-  styleUrl: './carrito.component.css'
+  styleUrl: './carrito.component.css' 
 })
 export class CarritoComponent {
-  title = 'Alessandro Giuseppe Antonio Anastasio Volta';
-  contador = 0;
+  // title = 'Alessandro Giuseppe Antonio Anastasio Volta';
+  // contador = 0;
+  // changeTitle(){
+  //   if (this.contador % 2 === 0) { // Función para cambiar el titulo
+  //     this.title='¡Gokuuu!';
+  //     this.contador += 1;
+  //   } else {
+  //     this.title='Alessandro Giuseppe Antonio Anastasio Volta';
+  //     this.contador += 1;
+  //   }
+  // }
 
   numeroProductos = 0;
 
@@ -20,16 +29,6 @@ export class CarritoComponent {
   productsToShow = 12; // Mostrar solo 12 al inicio
   carrito: Product[] = [];
 
-  changeTitle(){
-    if (this.contador % 2 === 0) { // Función para cambiar el titulo
-      this.title='¡Gokuuu!';
-      this.contador += 1;
-    } else {
-      this.title='Alessandro Giuseppe Antonio Anastasio Volta';
-      this.contador += 1;
-    }
-  }
-
   ngOnInit(){
     this.http.get<Product[]>('https://api.escuelajs.co/api/v1/products')
     .subscribe((data) => {
@@ -37,6 +36,9 @@ export class CarritoComponent {
       this.products = data.filter(product => product.id && product.title && product.images.length > 0);
       this.updateVisibleProducts();
     })
+
+    // Modal de recordatorios y LocalStorage
+    this.loadReminders();
   }
 
   updateVisibleProducts() {
@@ -54,8 +56,50 @@ export class CarritoComponent {
     this.numeroProductos += 1;
   }
 
-  eliminarProductoDelCarrito(id: number) {
+  /* No esta en uso practico de momento */
+  eliminarProductoDelCarrito(id: number) { /*Para el carrito real*/
     this.products = this.products.filter(product => product.id !== id);
     this.numeroProductos -= 1;
+  }
+
+  // MODAL DE RECORDATORIO
+
+  showReminder = false;
+  reminders: Product[] = [];
+
+  toggleReminder() {
+    this.showReminder = !this.showReminder;
+  }
+
+  agregarAlRecordatorio(product: Product) {
+    // evita duplicados
+    if (!this.reminders.find(p => p.id === product.id)) {
+      this.reminders.push(product);
+      this.saveReminders();
+    }
+  }
+
+  eliminarDelRecordatorio(product: Product) {
+    this.reminders = this.reminders.filter(p => p.id !== product.id);
+    alert(`¡${product.title} ha sido descartado!`);
+    this.saveReminders();
+  }
+
+  // Métodos para persistencia en LocalStorage
+
+  private loadReminders() {
+    const json = localStorage.getItem('reminders');
+    if (json) {
+      try {
+        this.reminders = JSON.parse(json);
+      } catch {
+        localStorage.removeItem('reminders');
+        this.reminders = [];
+      }
+    }
+  }
+
+  private saveReminders() {
+    localStorage.setItem('reminders', JSON.stringify(this.reminders));
   }
 }

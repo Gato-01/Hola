@@ -8,7 +8,7 @@
 		[src]="product.images[0]" alt="Imagen del producto">
 		<div class="botones">
 			<button (click)="agregarAlCarrito()">Agregar al carrito</button>
-			<button (click)="eliminarProductoDelCarrito()">Restar</button>
+			<button (click)="agregarAlRecordatorio()" class="btn-recordatorio">🔔</button>
 		</div>
 		
 	</div>
@@ -17,4 +17,3 @@
 <ng-container *ngIf="!product">
   No Existen productos
 </ng-container>
-
