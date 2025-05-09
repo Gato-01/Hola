@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { PreguntasFrecuentesComponent } from '../preguntas-frecuentes/preguntas-frecuentes.component';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +7,10 @@ import { PreguntasFrecuentesComponent } from '../preguntas-frecuentes/preguntas-
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-
+  selectedDate: Date | null = new Date();
   cartCount = 0;
 
+  // Categorías únicas con imágenes reales
   categories = [
     { 
       name: 'Electrónica', 
@@ -26,6 +26,7 @@ export class HomeComponent {
     }
   ];
 
+  // Productos destacados con imágenes reales
   featuredProducts = [
     {
       name: 'Smartphone Pro',
@@ -44,10 +45,16 @@ export class HomeComponent {
     }
   ];
 
-  addToCart(product: any) {
-    this.cartCount++;
-    // Aquí iría la lógica para agregar al carrito
-    console.log('Producto añadido:', product);
+  // Método para manejar selección de fecha
+  onDateSelected(event: Date) {
+    console.log('Fecha seleccionada:', event);
+    // Aquí puedes añadir lógica para filtrar productos por fecha
   }
 
+  // Método para agregar al carrito
+  addToCart(product: any) {
+    this.cartCount++;
+    console.log('Producto añadido:', product);
+    // Aquí iría la lógica para agregar al carrito real
+  }
 }

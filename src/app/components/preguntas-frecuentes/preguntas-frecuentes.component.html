@@ -1,37 +1,63 @@
 <div class="container-preguntas">
-	<h1>Preguntas frecuentes</h1>
-	<div class="custom-accordion">
-		<mat-accordion>
-			<!-- Pregunta 1 -->
-			<mat-expansion-panel hideToggle>
-				<mat-expansion-panel-header>
-					<mat-panel-title> This is the expansion title </mat-panel-title>
-					<mat-panel-description> This is a summary of the content </mat-panel-description>
-				</mat-expansion-panel-header>
-				<p>This is the primary content of the panel.</p>
-			</mat-expansion-panel>
+    <h1>Preguntas frecuentes</h1>
+    <div class="custom-accordion">
+        <mat-accordion>
+            <!-- Pregunta 1 - Envíos -->
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>📦 Envíos y entregas</mat-panel-title>
+                    <mat-panel-description>
+                        Tiempos y cobertura
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="faq-content">
+                    <p>Realizamos envíos a toda la República Mexicana a través de:</p>
+                    <ul>
+                        <li>Estafeta: 3-5 días hábiles</li>
+                        <li>DHL Express: 1-3 días hábiles</li>
+                    </ul>
+                    <p>El tiempo de entrega inicia una vez confirmado el pago. Todos los envíos incluyen número de rastreo.</p>
+                </div>
+            </mat-expansion-panel>
 
-			<!-- Pregunta 2 -->
-			<mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
-				<mat-expansion-panel-header>
-					<mat-panel-title> Self aware panel </mat-panel-title>
-					<mat-panel-description>
-						Currently I am {{panelOpenState() ? 'open' : 'closed'}}
-					</mat-panel-description>
-				</mat-expansion-panel-header>
-				<p>I'm visible because I am open</p>
-			</mat-expansion-panel>
+            <!-- Pregunta 2 - Devoluciones -->
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>🔄 Devoluciones</mat-panel-title>
+                    <mat-panel-description>
+                        Política de garantía
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="faq-content">
+                    <p>Aceptamos devoluciones hasta 15 días después de recibido el producto:</p>
+                    <ul>
+                        <li>El artículo debe estar en su empaque original</li>
+                        <li>Debe incluir todos los accesorios</li>
+                        <li>Presentar comprobante de compra</li>
+                    </ul>
+                    <p>El reembolso se procesa en un máximo de 5 días hábiles.</p>
+                </div>
+            </mat-expansion-panel>
 
-			<!-- Pregunta 3 -->
-			<mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
-				<mat-expansion-panel-header>
-					<mat-panel-title> Self aware panel </mat-panel-title>
-					<mat-panel-description>
-						Currently I am {{panelOpenState() ? 'open' : 'closed'}}
-					</mat-panel-description>
-				</mat-expansion-panel-header>
-				<p>I'm visible because I am open</p>
-			</mat-expansion-panel>
-		</mat-accordion>
-	</div>
+            <!-- Pregunta 3 - Pagos -->
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>💳 Medios de pago</mat-panel-title>
+                    <mat-panel-description>
+                        Opciones disponibles
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="faq-content">
+                    <p>Aceptamos los siguientes métodos de pago:</p>
+                    <ul>
+                        <li>Tarjetas de crédito/débito (Visa, MasterCard, American Express)</li>
+                        <li>PayPal</li>
+                        <li>Transferencia bancaria</li>
+                        <li>Mercado Pago</li>
+                    </ul>
+                    <p>Todas las transacciones son procesadas con encriptación SSL de 256 bits para máxima seguridad.</p>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
 </div>

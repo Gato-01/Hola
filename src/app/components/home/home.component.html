@@ -1,3 +1,5 @@
+
+
 <!-- Categories Grid -->
 <section class="categories">
   <h2>Categorías Populares</h2>
@@ -5,6 +7,18 @@
     <div class="category-card" *ngFor="let category of categories">
       <img [src]="category.image" alt="{{ category.name }}">
       <h3>{{ category.name }}</h3>
+    </div>
+  </div>
+</section>
+
+
+
+ <!-- Sección Hero con Imagen -->
+<section class="hero-section">
+  <div class="hero-overlay">
+    <div class="hero-content">
+      <h1 class="hero-title">Tu Experiencia de Compra Perfecta</h1>
+      <p class="hero-subtitle">Descubre productos exclusivos a precios increíbles</p>
     </div>
   </div>
 </section>

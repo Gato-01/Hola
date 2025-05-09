@@ -1,14 +1,67 @@
-<nav class="navbar">
-    <div class="logo">🛍️ Bienvenido</div>
-    <ul class="nav-links">
-      <li><a routerLink="/">Inicio</a></li>
-      <li><a routerLink="/carrito">Producto</a></li>
-      <li><a routerLink="/carritoProducto">Carrito</a></li>        
-      <li><a routerLink="/contacto">Contacto</a></li>
-      <li><a routerLink="/sesion" class=" nav-link"><strong>Iniciar Sesion</strong></a></li> 
-      <li><a routerLink="/registro" class="nav-link"><strong>Registrarse</strong></a></li> 
-    </ul>
+<mat-toolbar color="primary" class="custom-toolbar">
+  <!-- Logo -->
+  <div class="logo-container">
+    <mat-icon class="logo-icon">storefront</mat-icon>
+    <span class="logo-text">TienditaTop</span>
+  </div>
+
+  <!-- Espacio flexible -->
+  <div class="spacer"></div>
+
+  <!-- Navegación principal -->
+  <nav class="main-nav">
+    <a mat-button routerLink="/" class="nav-button">
+      <mat-icon>home</mat-icon>
+      <span class="button-text">Inicio</span>
+    </a>
+
+    <!-- Menú desplegable de Carrito -->
+    <mat-menu #carritoMenu="matMenu" class="custom-menu">
+      <button mat-menu-item routerLink="/carrito" [queryParams]="{category: 'tenis'}">
+        <mat-icon>sports_tennis</mat-icon>
+        👟 Tenis
+      </button>
+      <button mat-menu-item routerLink="/carrito" [queryParams]="{category: 'zapatos'}">
+        <mat-icon>style</mat-icon>
+        👞 Zapatos
+      </button>
+      <button mat-menu-item routerLink="/carrito" [queryParams]="{category: 'tecnologia'}">
+        <mat-icon>devices</mat-icon>
+        📱 Tecnología
+      </button>
+      <button mat-menu-item routerLink="/carrito" [queryParams]="{category: 'casa'}">
+        <mat-icon>home</mat-icon>
+        🏠 Casa
+      </button>
+    </mat-menu>
+
+    <button mat-button [matMenuTriggerFor]="carritoMenu" class="nav-button">
+      <mat-icon>shopping_cart</mat-icon>
+      <span class="button-text">Carrito</span>
+      <mat-icon>expand_more</mat-icon>
+    </button>
+
+    <a mat-button routerLink="/contacto" class="nav-button">
+      <mat-icon>contact_support</mat-icon>
+      <span class="button-text">Contacto</span>
+    </a>
   </nav>
-  
+
+  <!-- Separador -->
+  <div class="spacer"></div>
+
+  <!-- Autenticación -->
+  <div class="auth-section">
+    <a mat-stroked-button routerLink="/sesion" class="auth-button">
+      <mat-icon>login</mat-icon>
+      <span class="button-text">Ingresar</span>
+    </a>
+    
+    <a mat-raised-button color="accent" routerLink="/registro" class="auth-button">
+      <mat-icon>person_add</mat-icon>
+      <span class="button-text">Registro</span>
+    </a>
+  </div>
+</mat-toolbar>
   <!-- Aquí se cargarán los componentes --> 
   <router-outlet></router-outlet> 

@@ -13,10 +13,11 @@ import { Router } from '@angular/router';
 export class CarritoComponent {
 
   constructor(
+    
     private router: Router
   ) {} 
 
-  // Añade estos métodos
+  
 mostrarAlertaLogin() {
   const confirmacion = confirm('Para finalizar la compra debes iniciar sesión. ¿Deseas ir a la página de login?');
   
@@ -55,21 +56,31 @@ private cargarCarritoGuardado() {
 
   ngOnInit() {
     this.cargarProductos();
-    this.loadReminders();
-    this.cargarProductos();
-  this.loadReminders();
-  this.cargarCarritoGuardado(); 
+    this.loadReminders();    
+    this.cargarProductos();  
+    this.cargarCarritoGuardado(); 
   }
 
   private cargarProductos() {
     this.http.get<Product[]>('https://api.escuelajs.co/api/v1/products')
-      .subscribe((data) => {
-        this.products = data.filter(product => 
-          product.id && product.title && product.images.length > 0
-        );
-        this.updateVisibleProducts();
+      .subscribe({
+        next: (data) => {
+          console.log('Datos crudos de API:', data);
+          this.products = data.filter(product => {
+            const isValid = product.id && product.title && product.images.length > 0;
+            if (!isValid) console.log('Producto inválido:', product);
+            return isValid;
+          });
+          console.log('Productos válidos:', this.products.length);
+          console.log('ProductsToShow:', this.productsToShow);
+          this.updateVisibleProducts();
+        },
+        error: (err) => {
+          console.error('Error al cargar productos:', err);
+        }
       });
   }
+  
 
   // Métodos del carrito
   toggleCart() {
@@ -123,8 +134,17 @@ private cargarCarritoGuardado() {
   }
 
   showMore() {
-    this.productsToShow += 8;
+    console.log('Antes de mostrar más:', {
+      productsLength: this.products.length,
+      productsToShow: this.productsToShow
+    });
+    
+    const newValue = this.productsToShow + 8;
+    this.productsToShow = Math.min(newValue, this.products.length);
+    console.log('Después de incrementar:', this.productsToShow);
+    
     this.updateVisibleProducts();
+    console.log('Visible products:', this.visibleProducts.length);
   }
   truncateText(text: string, maxLength: number): string {
     return text.length > maxLength 

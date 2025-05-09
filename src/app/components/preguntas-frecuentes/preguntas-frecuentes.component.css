@@ -56,3 +56,37 @@ p {
     line-height: 1.5;
     color: #6b7280;
 }
+
+.container-preguntas {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 20px;
+}
+
+.faq-content {
+    line-height: 1.6;
+    padding: 15px;
+}
+
+.faq-content ul {
+    margin: 15px 0;
+    padding-left: 25px;
+}
+
+.faq-content li {
+    margin-bottom: 8px;
+}
+
+.mat-expansion-panel-header-title {
+    font-weight: 500 !important;
+}
+
+.mat-expansion-panel {
+    transition: all 0.3s ease;
+    margin: 10px 0;
+}
+
+.mat-expansion-panel:hover {
+    transform: translateX(5px);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}

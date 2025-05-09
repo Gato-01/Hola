@@ -15,6 +15,14 @@ import { RegistroComponent } from './components/gestionCuenta/registro/registro.
 import { PreguntasFrecuentesComponent } from './components/preguntas-frecuentes/preguntas-frecuentes.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+ 
+
 
 // import { HttpClient } from '@angular/common/http'
 
@@ -41,7 +49,14 @@ import { TruncatePipe } from './shared/pipes/truncate.pipe';
     HttpClientModule,
     MatExpansionModule,
     RouterModule,
-    CommonModule
+    CommonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

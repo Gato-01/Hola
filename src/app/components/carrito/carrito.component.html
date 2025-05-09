@@ -21,7 +21,7 @@
   </div>
 </div>
 
-<!-- Carrito -->
+ 
 <button class="fab cart-fab" (click)="toggleCart()">
   🛒 {{ numeroProductos }}
 </button>
@@ -78,12 +78,15 @@
   >
     </app-producto>
   </div>
-
   <div class="load-more">
-    <button *ngIf="productsToShow < products.length" (click)="showMore()">Ver más</button>
+    <button *ngIf="products && products.length > 0 && productsToShow < products.length" 
+            (click)="showMore()">
+      Ver más ({{ productsToShow }}/{{ products.length }})
+    </button>
+    <p *ngIf="productsToShow >= products.length && products.length > 0" class="no-more">
+      ¡Has visto todos los productos!
+    </p>
   </div>
-</div>
-
 <!-- Enviamos el producto al componente hijo (producto)
 significa que cuando ProductoComponent emita un evento,
 AppComponent ejecutará agregarAlCarrito() con ese producto. -->
