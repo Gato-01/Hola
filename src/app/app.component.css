@@ -7,26 +7,45 @@
 }
 
 /* Hero Section */
+/* Hero Section Modificado */
 .hero {
-  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-              url('https://source.unsplash.com/random/1920x1080?shopping');
-  background-size: cover;
-  background-position: center;
+  /* Quitamos el background-image original */
   color: white;
-  padding: 8rem 5%;
+  padding: 4rem 5%; /* Reducimos padding para mejor equilibrio */
   text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.hero h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+.hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 }
 
-.hero p {
-  font-size: 1.2rem;
+.hero-image {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   margin-bottom: 2rem;
 }
 
+/* Añadimos overlay directamente en el contenedor */
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4));
+  z-index: 1;
+}
 .search-container {
   max-width: 600px;
   margin: 0 auto;
@@ -184,3 +203,4 @@
     width: 100%;
   }
 }
+

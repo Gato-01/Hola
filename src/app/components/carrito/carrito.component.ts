@@ -1,44 +1,121 @@
-import { Component, inject, input, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
+  
   selector: 'app-carrito',
-  standalone: false,
+  standalone: false,  
   templateUrl: './carrito.component.html',
-  styleUrl: './carrito.component.css' 
+  styleUrls: ['./carrito.component.css']
 })
 export class CarritoComponent {
-  // title = 'Alessandro Giuseppe Antonio Anastasio Volta';
-  // contador = 0;
-  // changeTitle(){
-  //   if (this.contador % 2 === 0) { // Función para cambiar el titulo
-  //     this.title='¡Gokuuu!';
-  //     this.contador += 1;
-  //   } else {
-  //     this.title='Alessandro Giuseppe Antonio Anastasio Volta';
-  //     this.contador += 1;
-  //   }
-  // }
 
+  constructor(
+    private router: Router
+  ) {} 
+
+  // Añade estos métodos
+mostrarAlertaLogin() {
+  const confirmacion = confirm('Para finalizar la compra debes iniciar sesión. ¿Deseas ir a la página de login?');
+  
+  if(confirmacion) {
+    this.guardarCarrito();
+    this.router.navigate(['/sesion']);
+  }
+}
+
+private guardarCarrito() {
+  localStorage.setItem('carrito_pendiente', JSON.stringify(this.carrito));
+}
+ 
+
+private cargarCarritoGuardado() {
+  const carritoGuardado = localStorage.getItem('carrito_pendiente');
+  if(carritoGuardado) {
+    this.carrito = JSON.parse(carritoGuardado);
+    this.numeroProductos = this.carrito.length;
+    localStorage.removeItem('carrito_pendiente');
+  }
+}
+  
+  // Variables del carrito
+  showCart = false;
+  carrito: Product[] = [];
   numeroProductos = 0;
 
+  // Variables de productos y recordatorios
   http = inject(HttpClient);
-  products: Product[]=[];
+  products: Product[] = [];
   visibleProducts: Product[] = [];
-  productsToShow = 12; // Mostrar solo 12 al inicio
-  carrito: Product[] = [];
+  productsToShow = 12;
+  showReminder = false;
+  reminders: Product[] = [];
 
-  ngOnInit(){
-    this.http.get<Product[]>('https://api.escuelajs.co/api/v1/products')
-    .subscribe((data) => {
-      console.log('Datos recibidos:', data);
-      this.products = data.filter(product => product.id && product.title && product.images.length > 0);
-      this.updateVisibleProducts();
-    })
-
-    // Modal de recordatorios y LocalStorage
+  ngOnInit() {
+    this.cargarProductos();
     this.loadReminders();
+    this.cargarProductos();
+  this.loadReminders();
+  this.cargarCarritoGuardado(); 
+  }
+
+  private cargarProductos() {
+    this.http.get<Product[]>('https://api.escuelajs.co/api/v1/products')
+      .subscribe((data) => {
+        this.products = data.filter(product => 
+          product.id && product.title && product.images.length > 0
+        );
+        this.updateVisibleProducts();
+      });
+  }
+
+  // Métodos del carrito
+  toggleCart() {
+    this.showCart = !this.showCart;
+  }
+
+  agregarAlCarrito(producto: Product) {
+    this.carrito.push(producto);
+    this.numeroProductos = this.carrito.length;
+    this.showCart = true;
+  }
+
+  eliminarDelCarrito(index: number) {
+    this.carrito.splice(index, 1);
+    this.numeroProductos = this.carrito.length;
+  }
+
+  calcularTotal() {
+    return this.carrito.reduce((acc, item) => acc + item.price, 0);
+  }
+
+  // Métodos de recordatorios
+  toggleReminder() {
+    this.showReminder = !this.showReminder;
+  }
+
+  agregarAlRecordatorio(product: Product) {
+    if (!this.reminders.find(p => p.id === product.id)) {
+      this.reminders.push(product);
+      this.saveReminders();
+    }
+  }
+
+  eliminarDelRecordatorio(index: number) {
+    this.reminders.splice(index, 1);
+    this.saveReminders();
+  }
+
+  // Métodos comunes
+  private loadReminders() {
+    const reminders = localStorage.getItem('reminders');
+    this.reminders = reminders ? JSON.parse(reminders) : [];
+  }
+
+  private saveReminders() {
+    localStorage.setItem('reminders', JSON.stringify(this.reminders));
   }
 
   updateVisibleProducts() {
@@ -46,60 +123,14 @@ export class CarritoComponent {
   }
 
   showMore() {
-    this.productsToShow += 8; // Agrega 8 productos más
+    this.productsToShow += 8;
     this.updateVisibleProducts();
   }
-
-  agregarAlCarrito(producto: Product) {
-    this.carrito.push(producto);
-    console.log('Producto agregado:', producto);
-    this.numeroProductos += 1;
+  truncateText(text: string, maxLength: number): string {
+    return text.length > maxLength 
+      ? text.substring(0, maxLength) + '...' 
+      : text;
   }
 
-  /* No esta en uso practico de momento */
-  eliminarProductoDelCarrito(id: number) { /*Para el carrito real*/
-    this.products = this.products.filter(product => product.id !== id);
-    this.numeroProductos -= 1;
-  }
-
-  // MODAL DE RECORDATORIO
-
-  showReminder = false;
-  reminders: Product[] = [];
-
-  toggleReminder() {
-    this.showReminder = !this.showReminder;
-  }
-
-  agregarAlRecordatorio(product: Product) {
-    // evita duplicados
-    if (!this.reminders.find(p => p.id === product.id)) {
-      this.reminders.push(product);
-      this.saveReminders();
-    }
-  }
-
-  eliminarDelRecordatorio(product: Product) {
-    this.reminders = this.reminders.filter(p => p.id !== product.id);
-    alert(`¡${product.title} ha sido descartado!`);
-    this.saveReminders();
-  }
-
-  // Métodos para persistencia en LocalStorage
-
-  private loadReminders() {
-    const json = localStorage.getItem('reminders');
-    if (json) {
-      try {
-        this.reminders = JSON.parse(json);
-      } catch {
-        localStorage.removeItem('reminders');
-        this.reminders = [];
-      }
-    }
-  }
-
-  private saveReminders() {
-    localStorage.setItem('reminders', JSON.stringify(this.reminders));
-  }
+ 
 }

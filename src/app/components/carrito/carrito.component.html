@@ -1,21 +1,58 @@
-<!-- Modal de recordatorios -->
-<button class="fab" (click)="toggleReminder()" [class.fab-alert]="reminders.length > 0" title="Recordatorio">
+<!-- Recordatorios -->
+<button class="fab reminder-fab" (click)="toggleReminder()">
   🔔
 </button>
+
 <div class="reminder-panel" [class.show]="showReminder">
-  <h4>Recordatorio</h4> 
+  <div class="panel-header">
+    <h4>Recordatorios</h4>
+    <button class="close-btn" (click)="toggleReminder()">×</button>
+  </div>
   <div class="reminder-grid">
-    <div class="reminder-card" *ngFor="let p of reminders">
-      <img [src]="p.images" alt="{{p.title}}">
+    <div class="reminder-card" *ngFor="let p of reminders; let i = index">
+      <img [src]="p.images[0]" alt="{{p.title}}">
       <div class="info">
         <span class="name">{{ p.title }}</span>
         <span class="price">{{ p.price | currency }}</span>
-        <span (click)="eliminarDelRecordatorio(p)" class="icon-recordado">🔻</span>
+        <span (click)="eliminarDelRecordatorio(i)" class="icon-recordado">🗑️</span>
       </div>
     </div>
     <p *ngIf="reminders.length === 0" class="empty">No tienes recordatorios</p>
   </div>
 </div>
+
+<!-- Carrito -->
+<button class="fab cart-fab" (click)="toggleCart()">
+  🛒 {{ numeroProductos }}
+</button>
+
+<div class="cart-panel" [class.show]="showCart">
+  <div class="panel-header">
+    <h4>Tu Carrito ({{ numeroProductos }})</h4>
+    <button class="close-btn" (click)="toggleCart()">×</button>
+  </div>
+  
+  <div class="cart-items">
+    <div class="cart-item" *ngFor="let item of carrito; let i = index">
+      <img [src]="item.images[0]" alt="{{item.title}}">
+      <div class="item-info">
+        <span class="title">{{ truncateText(item.title, 20) }}</span>
+        <span class="price">{{ item.price | currency }}</span>
+        <button (click)="eliminarDelCarrito(i)" class="remove-btn">Eliminar</button>
+      </div>
+    </div>
+    <p *ngIf="carrito.length === 0" class="empty">Tu carrito está vacío</p>
+  </div>
+
+  <div class="cart-footer" *ngIf="carrito.length > 0">
+    <div class="total">
+      <span>Total:</span>
+      <span>{{ calcularTotal() | currency }}</span>
+    </div>
+    <button (click)="mostrarAlertaLogin()" class="checkout-btn">Finalizar Compra</button>
+  </div>
+</div>
+
 
 <!-- Contenedor general -->
 <div class="container">
@@ -38,7 +75,7 @@
     *ngFor="let product of visibleProducts" 
     (agregar)="agregarAlCarrito($event)"
     (recordarProducto)="agregarAlRecordatorio($event)"
-    (eliminarProducto)="eliminarProductoDelCarrito($event)">
+  >
     </app-producto>
   </div>
 

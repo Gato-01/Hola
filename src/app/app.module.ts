@@ -13,10 +13,14 @@ import { HomeComponent } from './components/home/home.component';
 import { CarritoProductoComponent } from './components/carrito-producto/carrito-producto.component';
 import { RegistroComponent } from './components/gestionCuenta/registro/registro.component';
 import { PreguntasFrecuentesComponent } from './components/preguntas-frecuentes/preguntas-frecuentes.component';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
 // import { HttpClient } from '@angular/common/http'
 
 // Componente de angular Material
 import {MatExpansionModule} from '@angular/material/expansion';
+import { TruncatePipe } from './shared/pipes/truncate.pipe';
 
 @NgModule({
   declarations: [
@@ -28,13 +32,16 @@ import {MatExpansionModule} from '@angular/material/expansion';
      HomeComponent,
      CarritoProductoComponent,
      RegistroComponent,
-     PreguntasFrecuentesComponent
+     PreguntasFrecuentesComponent,
+     TruncatePipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    MatExpansionModule
+    MatExpansionModule,
+    RouterModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

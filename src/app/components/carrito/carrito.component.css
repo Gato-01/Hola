@@ -235,3 +235,131 @@ font-size: 1.1rem; /* Añadido tamaño de fuente */
   grid-column: span 2;
   margin-top: 1rem;
 }
+
+
+/* Paneles flotantes */
+.fab {
+  position: fixed;
+  z-index: 1000;
+  padding: 1rem;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+}
+
+.fab:hover {
+  transform: scale(1.1);
+}
+
+.reminder-fab {
+  left: 20px;
+  bottom: 20px;
+  background: #3498db;
+  color: white;
+}
+
+.cart-fab {
+  right: 20px;
+  bottom: 20px;
+  background: #27ae60;
+  color: white;
+}
+
+/* Estilos comunes para paneles */
+.reminder-panel,
+.cart-panel {
+  position: fixed;
+  top: 0;
+  width: 350px;
+  height: 100vh;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+}
+
+.reminder-panel {
+  left: -350px;
+}
+
+.cart-panel {
+  right: -350px;
+}
+
+.reminder-panel.show {
+  transform: translateX(350px);
+}
+
+.cart-panel.show {
+  transform: translateX(-350px);
+}
+
+.panel-header {
+  padding: 1.5rem;
+  background: #2c3e50;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Elementos internos */
+.cart-items, .reminder-grid {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.cart-item, .reminder-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  background: #f8f9fa;
+}
+
+.cart-item img, .reminder-card img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.checkout-btn {
+  background: #27ae60;
+  color: white;
+  padding: 1rem;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.total {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .reminder-panel,
+  .cart-panel {
+    width: 100%;
+  }
+  
+  .reminder-panel.show {
+    transform: translateX(100%);
+  }
+  
+  .cart-panel.show {
+    transform: translateX(100%);
+  }
+}

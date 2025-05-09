@@ -14,15 +14,15 @@ export class HomeComponent {
   categories = [
     { 
       name: 'Electrónica', 
-      image: 'https://source.unsplash.com/random/800x600?electronics' 
+      image: 'https://images.pexels.com/photos/31974039/pexels-photo-31974039/free-photo-of-encimera-de-cocina-moderna-con-electrodomesticos-inteligentes.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' 
     },
     { 
       name: 'Moda', 
-      image: 'https://source.unsplash.com/random/800x600?fashion' 
+      image: 'https://media.falabella.com/falabellaCO/883011330_1/w=800,h=800,fit=pad' 
     },
     { 
       name: 'Hogar', 
-      image: 'https://source.unsplash.com/random/800x600?home' 
+      image: 'https://images.pexels.com/photos/2343466/pexels-photo-2343466.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' 
     }
   ];
 
@@ -30,17 +30,17 @@ export class HomeComponent {
     {
       name: 'Smartphone Pro',
       price: 599.99,
-      image: 'https://source.unsplash.com/random/800x600?phone'
+      image: 'https://media.falabella.com/falabellaCO/73059865_1/w=800,h=800,fit=pad'
     },
     {
       name: 'Laptop Ultra',
       price: 1299.99,
-      image: 'https://source.unsplash.com/random/800x600?laptop'
+      image: 'https://media.falabella.com/falabellaCO/140928629_01/w=800,h=800,fit=pad'
     },
     {
       name: 'Audífonos Premium',
       price: 199.99,
-      image: 'https://source.unsplash.com/random/800x600?headphones'
+      image: 'https://media.falabella.com/falabellaCO/131985605_01/w=800,h=800,fit=pad'
     }
   ];
 
