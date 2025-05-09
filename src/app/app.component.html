@@ -1,17 +1,3 @@
-<!-- Navbar -->
-<!-- <nav class="navbar">
-  <div class="logo">
-    <span>🛍️ TiendaTop</span>
-  </div>
-  <div class="nav-items">
-    <a routerLink="/home" class="nav-link">Inicio</a>
-    <a routerLink="/productos" class="nav-link">Productos</a>
-    <a routerLink="/carrito" class="nav-link">Carrito</a>
-    <a routerLink="/sesion" class=" nav-link"><strong>Iniciar Sesion</strong></a>
-    <a routerLink="/sesion" class="nav-link"><strong>Registrarse</strong></a>
-  </div>
-</nav> -->
-
 <!-- Hero Section -->
 <section class="hero">
   <div class="hero-content">
@@ -26,52 +12,54 @@
 
 <app-nav></app-nav>
 
-<!-- <app-home></app-home> -->
-
 <router-outlet></router-outlet>
-
-
-
-<!-- Categories Grid -->
-<!-- <section class="categories">
-  <h2>Categorías Populares</h2>
-  <div class="categories-grid">
-    <div class="category-card" *ngFor="let category of categories">
-      <img [src]="category.image" alt="{{ category.name }}">
-      <h3>{{ category.name }}</h3>
-    </div>
-  </div>
-</section> -->
- 
-<!-- Featured Products -->
-<!-- <section class="featured-products">
-  <h2>Productos Destacados</h2>
-  <div class="products-grid">
-    <div class="product-card" *ngFor="let product of featuredProducts">
-      <img [src]="product.image" alt="{{ product.name }}">
-      <h3>{{ product.name }}</h3>
-      <p class="price">{{ product.price | currency }}</p>
-      <button class="add-to-cart" (click)="addToCart(product)">🛒 Añadir</button>
-    </div>
-  </div>
-</section> -->
-
-
 
 <!-- Footer -->
 <footer class="footer">
-  <div class="footer-content">
+  <div class="footer-container">
+    <!-- Sobre Nosotros -->
     <div class="footer-section">
       <h4>Sobre Nosotros</h4>
-      <p>TiendaTop - La mejor experiencia de compra online</p>
+      <p>TiendaTop es tu aliado en compras online: calidad, rapidez y servicio 24/7.</p>
     </div>
+
+    <!-- Enlaces Rápidos -->
+    <div class="footer-section">
+      <h4>Enlaces Rápidos</h4>
+      <ul class="footer-links">
+        <li><a href="/home">Inicio</a></li>
+        <li><a href="/productos">Productos</a></li>
+        <li><a href="/contacto">Contacto</a></li>
+        <li><a href="/faq">Preguntas Frecuentes</a></li>
+      </ul>
+    </div>
+
+    <!-- Contacto & Redes -->
     <div class="footer-section">
       <h4>Contacto</h4>
-      <p></p>
       <p>📞 +1 234 567 890</p>
+      <p>✉️ soporte-tiendatop.com</p>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+      </div>
+    </div>
+
+    <!-- Suscripción -->
+    <div class="footer-section newsletter">
+      <h4>Suscríbete</h4>
+      <p>Recibe ofertas exclusivas y novedades directamente en tu inbox.</p>
+      <form class="newsletter-form">
+        <input type="email" placeholder="Tu correo electrónico" required>
+        <button type="submit">Enviar</button>
+      </form>
     </div>
   </div>
-  <div class="copyright">
+
+  <div class="footer-bottom">
     <p>© 2024 TiendaTop. Todos los derechos reservados.</p>
+    <p><a href="#">Política de Privacidad</a> | <a href="#">Términos de Uso</a></p>
   </div>
 </footer>

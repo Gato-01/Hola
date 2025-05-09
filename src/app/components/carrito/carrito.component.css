@@ -130,6 +130,29 @@ font-size: 1.1rem; /* Añadido tamaño de fuente */
 /* MODAL DE RECORDATORIOS */
 /* ********************** */
 
+/* Animación de “pulsar” el fondo */
+@keyframes pulse-bg {
+  0%   { background-color: #007bff; }
+  50%  { background-color: #0056b3; }
+  100% { background-color: #007bff; }
+}
+
+/* Animación de “sacudida” de la campana */
+@keyframes shake {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  25%      { transform: translateX(-2px) rotate(-10deg); }
+  50%      { transform: translateX(2px) rotate(10deg); }
+  75%      { transform: translateX(-2px) rotate(-10deg); }
+}
+
+/* Clase que aplicaremos condicionalmente */
+.fab-alert {
+  /* Escoge una de las dos, o usa ambas con distintos tiempos */
+  animation: 
+    pulse-bg 2s ease-in-out infinite,
+    shake    1.5s ease-in-out infinite;
+}
+
 .fab {
   position: fixed;
   bottom: 20px;

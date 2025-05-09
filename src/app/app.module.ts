@@ -12,7 +12,11 @@ import { SesionComponent } from './components/gestionCuenta/sesion/sesion.compon
 import { HomeComponent } from './components/home/home.component';
 import { CarritoProductoComponent } from './components/carrito-producto/carrito-producto.component';
 import { RegistroComponent } from './components/gestionCuenta/registro/registro.component';
+import { PreguntasFrecuentesComponent } from './components/preguntas-frecuentes/preguntas-frecuentes.component';
 // import { HttpClient } from '@angular/common/http'
+
+// Componente de angular Material
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -23,12 +27,14 @@ import { RegistroComponent } from './components/gestionCuenta/registro/registro.
      SesionComponent,
      HomeComponent,
      CarritoProductoComponent,
-     RegistroComponent
+     RegistroComponent,
+     PreguntasFrecuentesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

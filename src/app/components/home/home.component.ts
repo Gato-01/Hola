@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PreguntasFrecuentesComponent } from '../preguntas-frecuentes/preguntas-frecuentes.component';
 
 @Component({
   selector: 'app-home',

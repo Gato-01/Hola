@@ -1,9 +1,9 @@
 <!-- Modal de recordatorios -->
-<button class="fab" (click)="toggleReminder()">
+<button class="fab" (click)="toggleReminder()" [class.fab-alert]="reminders.length > 0" title="Recordatorio">
   🔔
 </button>
 <div class="reminder-panel" [class.show]="showReminder">
-  <h4>Recordatorio</h4>
+  <h4>Recordatorio</h4> 
   <div class="reminder-grid">
     <div class="reminder-card" *ngFor="let p of reminders">
       <img [src]="p.images" alt="{{p.title}}">

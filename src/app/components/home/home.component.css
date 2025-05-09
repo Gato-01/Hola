@@ -1,4 +1,4 @@
- /* Categories Grid */
+/* Categories Grid */
 .categories {
 padding: 4rem 5%;
 }
@@ -43,7 +43,7 @@ color: #2c3e50;
 /* Productos Destacados */
 .featured-products {
 padding: 4rem 5%;
-background: #f9f9f9;
+background: white;
 }
 
 .featured-products h2 {
