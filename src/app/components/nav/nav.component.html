@@ -1,21 +1,21 @@
-<mat-toolbar color="primary" class="custom-toolbar">
-  <!-- Logo -->
+<mat-toolbar color="primary" class="sticky-toolbar">
+
   <div class="logo-container">
     <mat-icon class="logo-icon">storefront</mat-icon>
     <span class="logo-text">TienditaTop</span>
   </div>
 
-  <!-- Espacio flexible -->
+
   <div class="spacer"></div>
 
-  <!-- Navegación principal -->
+
   <nav class="main-nav">
     <a mat-button routerLink="/" class="nav-button">
       <mat-icon>home</mat-icon>
       <span class="button-text">Inicio</span>
     </a>
 
-    <!-- Menú desplegable de Carrito -->
+  
     <mat-menu #carritoMenu="matMenu" class="custom-menu">
       <button mat-menu-item routerLink="/carrito" [queryParams]="{category: 'tenis'}">
         <mat-icon>sports_tennis</mat-icon>
@@ -23,7 +23,7 @@
       </button>
       <button mat-menu-item routerLink="/carrito" [queryParams]="{category: 'zapatos'}">
         <mat-icon>style</mat-icon>
-        👞 Zapatos
+        👞 Camisetas
       </button>
       <button mat-menu-item routerLink="/carrito" [queryParams]="{category: 'tecnologia'}">
         <mat-icon>devices</mat-icon>
@@ -31,13 +31,13 @@
       </button>
       <button mat-menu-item routerLink="/carrito" [queryParams]="{category: 'casa'}">
         <mat-icon>home</mat-icon>
-        🏠 Casa
+        🏠 Hogar
       </button>
     </mat-menu>
 
     <button mat-button [matMenuTriggerFor]="carritoMenu" class="nav-button">
       <mat-icon>shopping_cart</mat-icon>
-      <span class="button-text">Carrito</span>
+      <span class="button-text">Categorias</span>
       <mat-icon>expand_more</mat-icon>
     </button>
 
@@ -47,10 +47,9 @@
     </a>
   </nav>
 
-  <!-- Separador -->
+
   <div class="spacer"></div>
 
-  <!-- Autenticación -->
   <div class="auth-section">
     <a mat-stroked-button routerLink="/sesion" class="auth-button">
       <mat-icon>login</mat-icon>
@@ -63,5 +62,5 @@
     </a>
   </div>
 </mat-toolbar>
-  <!-- Aquí se cargarán los componentes --> 
+
   <router-outlet></router-outlet> 

@@ -87,3 +87,24 @@
     gap: 0.5rem;
   }
 }
+
+/* Styles */
+.sticky-toolbar {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+main {
+  margin-top: 64px; /* Altura estándar de Material Toolbar */
+  padding: 20px;
+}
+
+mat-toolbar {
+  position: fixed;
+  top: 0;
+  z-index: 1000; /* Mayor que el recordatorio */
+  width: 100%;
+}

@@ -4,45 +4,19 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
-  
   selector: 'app-carrito',
   standalone: false,  
   templateUrl: './carrito.component.html',
   styleUrls: ['./carrito.component.css']
 })
 export class CarritoComponent {
+  constructor(private router: Router) {} 
 
-  constructor(
-    
-    private router: Router
-  ) {} 
+  // Variables del panel combinado
+  showCombinedPanel = false;
+  activeTab: 'cart' | 'reminders' = 'cart';
 
-  
-mostrarAlertaLogin() {
-  const confirmacion = confirm('Para finalizar la compra debes iniciar sesión. ¿Deseas ir a la página de login?');
-  
-  if(confirmacion) {
-    this.guardarCarrito();
-    this.router.navigate(['/sesion']);
-  }
-}
-
-private guardarCarrito() {
-  localStorage.setItem('carrito_pendiente', JSON.stringify(this.carrito));
-}
- 
-
-private cargarCarritoGuardado() {
-  const carritoGuardado = localStorage.getItem('carrito_pendiente');
-  if(carritoGuardado) {
-    this.carrito = JSON.parse(carritoGuardado);
-    this.numeroProductos = this.carrito.length;
-    localStorage.removeItem('carrito_pendiente');
-  }
-}
-  
   // Variables del carrito
-  showCart = false;
   carrito: Product[] = [];
   numeroProductos = 0;
 
@@ -51,46 +25,25 @@ private cargarCarritoGuardado() {
   products: Product[] = [];
   visibleProducts: Product[] = [];
   productsToShow = 12;
-  showReminder = false;
   reminders: Product[] = [];
 
   ngOnInit() {
     this.cargarProductos();
     this.loadReminders();    
-    this.cargarProductos();  
     this.cargarCarritoGuardado(); 
   }
 
-  private cargarProductos() {
-    this.http.get<Product[]>('https://api.escuelajs.co/api/v1/products')
-      .subscribe({
-        next: (data) => {
-          console.log('Datos crudos de API:', data);
-          this.products = data.filter(product => {
-            const isValid = product.id && product.title && product.images.length > 0;
-            if (!isValid) console.log('Producto inválido:', product);
-            return isValid;
-          });
-          console.log('Productos válidos:', this.products.length);
-          console.log('ProductsToShow:', this.productsToShow);
-          this.updateVisibleProducts();
-        },
-        error: (err) => {
-          console.error('Error al cargar productos:', err);
-        }
-      });
+  // Métodos para el panel combinado
+  toggleCombinedPanel() {
+    this.showCombinedPanel = !this.showCombinedPanel;
   }
-  
 
   // Métodos del carrito
-  toggleCart() {
-    this.showCart = !this.showCart;
-  }
-
   agregarAlCarrito(producto: Product) {
     this.carrito.push(producto);
     this.numeroProductos = this.carrito.length;
-    this.showCart = true;
+    this.activeTab = 'cart'; // Cambia a la pestaña del carrito al agregar
+    this.showCombinedPanel = true; // Muestra el panel
   }
 
   eliminarDelCarrito(index: number) {
@@ -103,14 +56,12 @@ private cargarCarritoGuardado() {
   }
 
   // Métodos de recordatorios
-  toggleReminder() {
-    this.showReminder = !this.showReminder;
-  }
-
   agregarAlRecordatorio(product: Product) {
     if (!this.reminders.find(p => p.id === product.id)) {
       this.reminders.push(product);
       this.saveReminders();
+      this.activeTab = 'reminders'; // Cambia a la pestaña de recordatorios
+      this.showCombinedPanel = true; // Muestra el panel
     }
   }
 
@@ -119,7 +70,35 @@ private cargarCarritoGuardado() {
     this.saveReminders();
   }
 
-  // Métodos comunes
+  // Métodos para mover items entre secciones
+  moverARecordatorios(index: number) {
+    const item = this.carrito[index];
+    this.eliminarDelCarrito(index);
+    this.agregarAlRecordatorio(item);
+  }
+
+  moverACarrito(index: number) {
+    const item = this.reminders[index];
+    this.eliminarDelRecordatorio(index);
+    this.agregarAlCarrito(item);
+  }
+
+  // Métodos de persistencia
+  private cargarProductos() {
+    this.http.get<Product[]>('https://api.escuelajs.co/api/v1/products')
+      .subscribe({
+        next: (data) => {
+          this.products = data.filter(product => {
+            return product.id && product.title && product.images.length > 0;
+          });
+          this.updateVisibleProducts();
+        },
+        error: (err) => {
+          console.error('Error al cargar productos:', err);
+        }
+      });
+  }
+
   private loadReminders() {
     const reminders = localStorage.getItem('reminders');
     this.reminders = reminders ? JSON.parse(reminders) : [];
@@ -129,28 +108,42 @@ private cargarCarritoGuardado() {
     localStorage.setItem('reminders', JSON.stringify(this.reminders));
   }
 
+  private cargarCarritoGuardado() {
+    const carritoGuardado = localStorage.getItem('carrito_pendiente');
+    if(carritoGuardado) {
+      this.carrito = JSON.parse(carritoGuardado);
+      this.numeroProductos = this.carrito.length;
+      localStorage.removeItem('carrito_pendiente');
+    }
+  }
+
+  // Métodos de UI
+  mostrarAlertaLogin() {
+    const confirmacion = confirm('Para finalizar la compra debes iniciar sesión. ¿Deseas ir a la página de login?');
+    
+    if(confirmacion) {
+      this.guardarCarrito();
+      this.router.navigate(['/sesion']);
+    }
+  }
+
+  private guardarCarrito() {
+    localStorage.setItem('carrito_pendiente', JSON.stringify(this.carrito));
+  }
+
   updateVisibleProducts() {
     this.visibleProducts = this.products.slice(0, this.productsToShow);
   }
 
   showMore() {
-    console.log('Antes de mostrar más:', {
-      productsLength: this.products.length,
-      productsToShow: this.productsToShow
-    });
-    
     const newValue = this.productsToShow + 8;
     this.productsToShow = Math.min(newValue, this.products.length);
-    console.log('Después de incrementar:', this.productsToShow);
-    
     this.updateVisibleProducts();
-    console.log('Visible products:', this.visibleProducts.length);
   }
+
   truncateText(text: string, maxLength: number): string {
     return text.length > maxLength 
       ? text.substring(0, maxLength) + '...' 
       : text;
   }
-
- 
 }
