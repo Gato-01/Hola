@@ -29,6 +29,7 @@ import { MatButtonModule } from '@angular/material/button';
 // Componente de angular Material
 import {MatExpansionModule} from '@angular/material/expansion';
 import { TruncatePipe } from './shared/pipes/truncate.pipe';
+import { AyudaComponent } from './components/ayuda/ayuda.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { TruncatePipe } from './shared/pipes/truncate.pipe';
      CarritoProductoComponent,
      RegistroComponent,
      PreguntasFrecuentesComponent,
-     TruncatePipe
+     TruncatePipe,
+     AyudaComponent
   ],
   imports: [
     BrowserModule,

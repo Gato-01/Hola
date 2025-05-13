@@ -1,0 +1,37 @@
+<section class="ayuda-container">
+  <h1 class="ayuda-title">Centro de Ayuda</h1>
+  
+  <div class="seccion-ayuda">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item" *ngFor="let item of preguntasFrecuentes; let i = index">
+        <div class="faq-question" (click)="toggleRespuesta(i)">
+          <h3>{{ item.pregunta }}</h3>
+          <span class="toggle-icon">{{ preguntaExpandida === i ? '−' : '+' }}</span>
+        </div>
+        <div class="faq-answer" [class.expanded]="preguntaExpandida === i">
+          <p>{{ item.respuesta }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seccion-ayuda">
+    <h2>Contacto</h2>
+    <form class="contact-form">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" placeholder="Tu nombre">
+      </div>
+      <div class="form-group">
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" placeholder="tu@email.com">
+      </div>
+      <div class="form-group">
+        <label for="mensaje">Mensaje</label>
+        <textarea id="mensaje" rows="5" placeholder="Describe tu consulta"></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Enviar Consulta</button>
+    </form>
+  </div>
+</section>
