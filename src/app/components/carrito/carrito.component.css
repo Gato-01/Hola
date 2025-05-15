@@ -20,7 +20,7 @@ height: 100vh;
 display: grid;
 grid-template-columns: 1fr 4fr; /* Sidebar 1fr, productos 4fr */
 gap: 20px;
-padding: 20px;
+padding: 60px 20px 20px 20px;
 }
 
 /* *************************** */
@@ -109,21 +109,42 @@ font-size: 1.1rem; /* Añadido tamaño de fuente */
 
 .load-more {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
 }
 
 .load-more button {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
+  background-color: #f0f4f8;     /* gris claro suave */
+  color: #334e68;                /* azul oscuro apagado */
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  border: 1px solid #c0d3e2;     /* borde grisáceo */
+  border-radius: 8px;            /* esquinas más redondeadas */
   cursor: pointer;
-  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: background-color 0.25s ease, transform 0.1s ease, box-shadow 0.25s ease;
 }
 
+/* Hover sutil: cambio de fondo y elevación leve */
 .load-more button:hover {
-  background-color: #0056b3;
+  background-color: #e1e9f0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+
+/* Click: vuelta a su posición */
+.load-more button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Mensaje informativo */
+.load-more p {
+  cursor: default;
+  margin-top: 0.75rem;
+  color: #627d98;               /* gris azulado */
+  font-size: 0.9rem;
+  font-style: italic;
 }
 
 /* ********************** */
@@ -156,7 +177,7 @@ font-size: 1.1rem; /* Añadido tamaño de fuente */
 .fab {
   position: fixed;
   bottom: 20px;
-  right: 20px;
+  left: 20px;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -179,7 +200,7 @@ font-size: 1.1rem; /* Añadido tamaño de fuente */
 .reminder-panel {
   position: fixed;
   bottom: 80px;
-  right: 20px;
+  left: 20px;
   width: 280px;
   max-height: 350px;
   background: #fff;
@@ -187,7 +208,7 @@ font-size: 1.1rem; /* Añadido tamaño de fuente */
   box-shadow: 0 6px 12px rgba(0,0,0,0.2);
   overflow-y: auto;
   transform: scale(0);
-  transform-origin: bottom right;
+  transform-origin: bottom left;
   transition: transform 0.3s ease;
   padding: 0.5rem;
   z-index: 1001;
@@ -223,6 +244,7 @@ font-size: 1.1rem; /* Añadido tamaño de fuente */
   width: 100%;
   height: auto;
   border-radius: 4px;
+  cursor: pointer;
 }
 .info {
   font-size: 0.75rem;
@@ -236,309 +258,312 @@ font-size: 1.1rem; /* Añadido tamaño de fuente */
   margin-top: 1rem;
 }
 
+/* **************** */
+/* MODAL DE CARRITO */
+/* **************** */
 
-/* Paneles flotantes */
-.fab {
+/* Nuevo pulso de color (naranja → más oscuro → naranja) */
+@keyframes pulse-bg-carrito {
+  0%   { background-color: #f39c12; }  /* naranja */
+  50%  { background-color: #d37400; }  /* naranja oscuro */
+  100% { background-color: #f39c12; }
+}
+
+/* Animación de “sacudida” de la campana */
+@keyframes pulse-scale-carrito {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.08); }
+}
+
+/* Clase que aplicaremos condicionalmente */
+.fab-alert-carrito {
+  /* Escoge una de las dos, o usa ambas con distintos tiempos */
+  animation: 
+    pulse-bg-carrito 2.5s ease-in-out infinite,
+    pulse-scale-carrito    1.5s ease-in-out infinite;
+}
+
+.fab-carrito {
   position: fixed;
-  z-index: 1000;
-  padding: 1rem;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  transition: transform 0.3s;
-}
-
-.fab:hover {
-  transform: scale(1.1);
-}
-
-.reminder-fab {
-  left: 20px;
   bottom: 20px;
-  background: #3498db;
-  color: white;
-}
-
-.cart-fab {
   right: 20px;
-  bottom: 20px;
-  background: #27ae60;
-  color: white;
-}
-
-/* Estilos comunes para paneles */
-.reminder-panel,
-.cart-panel {
-  position: fixed;
-  top: 0;
-  width: 350px;
-  height: 100vh;
-  background: white;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
-  transition: transform 0.3s;
-  z-index: 999;
-  display: flex;
-  flex-direction: column;
-}
-
-.reminder-panel {
-  left: -350px;
-}
-
-.cart-panel {
-  right: -350px;
-}
-
-.reminder-panel.show {
-  transform: translateX(350px);
-}
-
-.cart-panel.show {
-  transform: translateX(-350px);
-}
-
-.panel-header {
-  padding: 1.5rem;
-  background: #2c3e50;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* Elementos internos */
-.cart-items, .reminder-grid {
-  flex: 1;
-  overflow-y: auto;
-  padding: 1rem;
-}
-
-.cart-item, .reminder-card {
-  display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 8px;
-  background: #f8f9fa;
-}
-
-.cart-item img, .reminder-card img {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 4px;
-}
-
-.checkout-btn {
-  background: #27ae60;
-  color: white;
-  padding: 1rem;
-  width: 100%;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1.1rem;
-}
-
-.total {
-  font-size: 1.2rem;
-  font-weight: bold;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-}
-
-@media (max-width: 768px) {
-  .reminder-panel,
-  .cart-panel {
-    width: 100%;
-  }
-  
-  .reminder-panel.show {
-    transform: translateX(100%);
-  }
-  
-  .cart-panel.show {
-    transform: translateX(100%);
-  }
-}
-
-.load-more {
-  text-align: center;
-  margin: 2rem 0;
-  padding: 1rem;
-  background: #f8f9fa;
-  border-radius: 10px;
-}
-
-.load-more button {
-  background: #3498db;
-  color: white;
-  border: none;
-  padding: 0.8rem 2rem;
-  border-radius: 25px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-}
-
-.load-more button:hover {
-  background: #2980b9;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-}
-
-.no-more {
-  color: #7f8c8d;
-  font-style: italic;
-}
-
-
-/* Añade estos estilos al panel del carrito */
-.cart-panel {
-  top: 80px; /* Ajusta según la altura de tu barra de navegación */
-  height: calc(100vh - 80px); /* Resta la altura de la barra */
-  z-index: 999; /* Asegura que esté debajo de la barra pero encima del contenido */
-}
-
-/* Ajusta el z-index de la barra de navegación */
-mat-toolbar.custom-toolbar {
-  z-index: 1000; /* Mayor que el del carrito */
-}
-
-/* Añade margen al contenedor principal */
-.container {
-  margin-top: 80px; /* Igual a la altura de la barra */
-}
-
-/* Corrige la posición del botón de cerrar */
-.close-btn {
-  z-index: 1001; /* Asegura que el botón sea clickeable */
-}
-
-/* Ajusta la animación del panel */
-.cart-panel.show {
-  transform: translateX(-100%);
-}
-
-@media (max-width: 768px) {
-  .cart-panel {
-    top: 0;
-    height: 100vh;
-    width: 100vw;
-  }
-  
-  .cart-panel.show {
-    transform: translateX(0);
-  }
-}
-/* Carrito */ 
-
-
-/* Estilos para el panel combinado */
-.combined-fab {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  background: linear-gradient(135deg, #9c9e22 0%, #3498db 100%);
-  color: rgb(5, 5, 5);
-  width: 80px;
-  height: 80px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
+  background-color: #f39c12;
+  color: #fff;
   font-size: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   border: none;
   cursor: pointer;
-  z-index: 1000;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.fab-carrito:hover {
+  background-color: #d35400;
+  transform: scale(1.1);
 }
 
-.combined-panel {
+/* LE DAMOS ESTILOS AL SPAN QUE CONTIENE
+EL NUMERO DE PRODUCTOS DEL CARRITO */
+.fab-numproducts-cart {
   position: fixed;
-  right: 20px;
-  bottom: 90px;
-  width: 350px;
-  max-height: 500px;
-  background: #b1cfdb;
-  border-radius: 10px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-  transform: translateY(20px) scale(0.9);
+  bottom: 32px;               /* un poco más alto para centrar con la FAB (50px alto) */
+  right: 60px;                /* 20px (margen) + 50px (ancho de la FAB) + 6px de separación */
+  cursor: default;
+  
+  /* Dimensiones de badge */
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+
+  /* Colores de badge */
+  background-color: #ff3b30;  /* rojo suave, nada agresivo */
+  color: #fff;                /* texto en blanco */
+
+  /* Tipografía */
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+
+  /* Centramos el número */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Sombras y elevación */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+
+  /* Transicion de entrada y salida */
+  /* 1. Estado oculto por defecto */
   opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-  z-index: 1001;
-  display: flex;
-  flex-direction: column;
+  transform: scale(0.5);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.combined-panel.show {
-  transform: translateY(0) scale(1);
+/* 2. Cuando aparece (clase .show) */
+.fab-numproducts-cart.show {
   opacity: 1;
-  visibility: visible;
+  transform: scale(1);
+}
+/**************************************/
+
+.cart-panel {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 300px;
+  max-height: 600px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  overflow-y: auto;
+  transform: scale(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease;
+  padding: 0.5rem;
+  z-index: 1001;
+}
+.cart-panel.show {
+  transform: scale(1);
+}
+.cart-panel h4 {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5rem;
 }
 
-.panel-tabs {
+/* GRID DE TARJETAS */
+
+.cart-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  padding-bottom: 1rem;
+}
+
+/* TARJETA INDIVIDUAL */
+
+.cart-card {
   display: flex;
-  gap: 5px;
-  margin-right: auto;
+  gap: 0.5rem; /*nuevo*/
+  background: #f8f9fa;
+  border-radius: 6px;
+  padding: 0.5rem; /*0.25*/
+  /* text-align: center; */
+  transition: background 0.2s;
 }
-
-.panel-tabs button {
-  background: none;
-  border: none;
-  color: white;
-  padding: 5px 10px;
+.cart-card:hover {
+  background: #e2e6ea;
+}
+.cart-card img {
+  /* width: 100%;
+  height: auto;
+  border-radius: 4px; */
+  width: 60px; height: 60px;
+  object-fit: cover;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 0.9rem;
 }
 
-.panel-tabs button.active {
-  background: rgba(255,255,255,0.2);
-}
+/* INFO Y CONTROLES */
 
-.panel-content {
+.cart-card .info {
+  /* font-size: 0.75rem;
+  margin-top: 0.25rem; */
   flex: 1;
-  overflow-y: auto;
-  padding: 15px;
-}
-
-/* Estilos para las acciones de los items */
-.item-actions {
   display: flex;
-  gap: 5px;
-  margin-top: 5px;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.cart-card .name {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.cart-card .price {
+  font-size: 0.85rem;
+  color: #555;
 }
 
-.item-actions button {
-  flex: 1;
-  padding: 3px 5px;
-  font-size: 0.7rem;
-  border: none;
-  border-radius: 3px;
+/* CONTROLES DE CANTIDAD */
+
+.cart-card .qty-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+}
+.cart-card .qty-control button {
+  width: 24px;
+  height: 24px;
+  /* border: none; */
+  /* background: #007bff; */
+  background: transparent;
+  color: #555;
+  border-radius: 4px;
+  border-color: #007bff;
   cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  transition: background 0.2s;
+}
+.cart-card .qty-control button:hover {
+  background: #0056b3;
+  color: #fff;
+}
+.cart-card .qty {
+  display: inline-block;
+  width: 20px;
+  text-align: center;
 }
 
-.remove-btn {
-  background: #e74c3c;
-  color: rgb(255, 255, 255);
+/* ACCIONES DESCARTAR / RECORDAR */
+
+.cart-card .actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto; /* lleva las acciones abajo */
+}
+.cart-card .icon-carrito {
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: color 0.2s, transform 0.2s ease;
+}
+.cart-card .icon-carrito:hover {
+  color: #007bff;
+  transform: scale(1.2);
 }
 
-.reminder-btn, .add-to-cart {
-  background: #3498db;
-  color: rgb(255, 255, 255);
+/* TOTAL FIJO AL PIE */
+/* Aseguramos que todo el contenido del pie ocupe el ancho completo y tenga separación */
+.cart-panel .cart-total {
+  position: sticky;
+  background: #fff;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;       /* separación entre filas */
+  align-items: stretch;  /* para que los hijos llenen el ancho / center */
+  padding: 0.5rem 0.25rem;
+  border-top: 1px solid #ddd;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
-/* Ajustes para responsive */
-@media (max-width: 768px) {
-  .combined-panel {
-    width: calc(100% - 40px);
-    right: 20px;
-    left: 20px;
-    max-height: 70vh;
-  }
+/* El total también ocupa todo el ancho */
+.cart-panel .cart-total .total-pay {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.5rem; /* un ligero acolchado horizontal */
+}
+
+/* Botones a todo ancho, apilados */
+.cart-panel .cart-total button {
+  width: 100%;
+  padding: 0.75rem 1rem; /* padding: 0.5rem 1.25rem; */
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* sombra ligera */
+}
+
+/* Estilo específico de “Seguir comprando” */
+.cart-panel .btn-continue {
+  background: transparent;
+  color: #007bff;
+  border: 2px solid #007bff;
+}
+.cart-panel .btn-continue:hover {
+  transform: translateY(-1px);
+}
+
+/* Ya tenías definido el estilo del pagar, ajustamos solo el ancho */
+.cart-panel .btn-pay {
+  background-color: #28a745;
+  border: none;
+  color: #fff;
+}
+.cart-panel .btn-pay:hover {
+  background-color: #218838;
+  transform: translateY(-1px);
+}
+.cart-panel .btn-pay:active {
+  background-color: #1e7e34;
+  transform: translateY(0);
+}
+
+/* **************************** */
+/* Cuando el carrito está vacío */
+/* **************************** */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* padding: 2rem 1rem; */
+  grid-column: span 2; /* si estás dentro de un grid de 2 columnas */
+}
+
+/* Imagen de carrito vacío */
+.empty-state-img {
+  width: 200px;       /* ajústalo a tu gusto */
+  max-width: 60%;
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+}
+
+/* Texto del estado vacío */
+.empty-state-text {
+  text-align: center;
+  color: #666;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
 }

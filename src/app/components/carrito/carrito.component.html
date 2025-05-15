@@ -1,64 +1,80 @@
-<!-- Botón flotante combinado -->
-<button class="fab combined-fab" (click)="toggleCombinedPanel()">
-  🛒🔔 {{ numeroProductos }}
+<!-- ********************** -->
+<!-- Modal de recordatorios -->
+<!-- ********************** -->
+<button class="fab" (click)="toggleReminder()" [class.fab-alert]="reminders.length > 0" title="Recordatorio">
+  🔔
+</button> 
+
+<!-- Panel del recordatorio -->
+<div class="reminder-panel" [class.show]="showReminder">
+  <h4>Recordatorio</h4> 
+  <div class="reminder-grid">
+    <div class="reminder-card" *ngFor="let p of reminders">
+      <img [src]="p.images" alt="{{p.title}}" title="Subir al carrito" (click)="agregarAlCarrito(p)">
+      <div class="info">
+        <span class="name">{{ p.title }} </span>
+        <span class="price">{{ p.price | currency }}</span>
+        <span (click)="eliminarDelRecordatorio(p)" class="icon-recordado" title="Olvidar">🔻</span>
+      </div>
+    </div>
+    <p *ngIf="reminders.length === 0" class="empty">No tienes recordatorios</p>
+  </div>
+</div>
+
+<!-- **************** -->
+<!-- Modal de carrito -->
+<!-- **************** -->
+<button
+  class="fab-carrito"
+  (click)="toggleCart()"
+  [class.fab-alert-carrito]="cart.length > 0"
+  title="Carrito">
+  🛒
 </button>
 
-<!-- Panel combinado -->
-<div class="combined-panel" [class.show]="showCombinedPanel">
-  <div class="panel-header">
-    <div class="panel-tabs">
-      <button [class.active]="activeTab === 'cart'" (click)="activeTab = 'cart'">
-        Carrito ({{ numeroProductos }})
-      </button>
-      <button [class.active]="activeTab === 'reminders'" (click)="activeTab = 'reminders'">
-        Recordatorios ({{ reminders.length }})
-      </button>
-    </div>
-    <button class="close-btn" (click)="toggleCombinedPanel()">×</button>
-  </div>
-  
-  <!-- Contenido del carrito -->
-  <div class="panel-content" *ngIf="activeTab === 'cart'">
-    <div class="cart-items">
-      <div class="cart-item" *ngFor="let item of carrito; let i = index">
-        <img [src]="item.images[0]" alt="{{item.title}}">
-        <div class="item-info">
-          <span class="title">{{ truncateText(item.title, 20) }}</span>
-          <span class="price">{{ item.price | currency }}</span>
-          <div class="item-actions">
-            <button (click)="eliminarDelCarrito(i)" class="remove-btn">Eliminar</button>
-            <button (click)="moverARecordatorios(i)" class="reminder-btn">Recordar</button>
-          </div>
+<span [class.show]="cart.length > 0" class="fab-numproducts-cart">{{cart.length}}</span>
+
+<!-- Panel del carrito -->
+<div class="cart-panel" [class.show]="showCart">
+  <h4>Carrito</h4> 
+
+  <div class="cart-grid">
+    <div class="cart-card" *ngFor="let p of cart">
+      <img [src]="p.images" alt="{{p.title}}">
+
+      <div class="info">
+        <span class="name">{{ p.title }}</span>
+        <span class="price">{{ p.price | currency }}</span>
+
+        <!-- Controles de unidades -->
+        <div class="qty-control">
+          <button (click)="decrease(p)" title="Restar">−</button>
+          <span class="qty">{{ p.quantity }}</span>
+          <button (click)="increase(p)" title="Sumar">+</button>
+        </div>
+
+        <!-- Acciones -->
+        <div class="actions">
+          <span (click)="eliminarDelCarrito(p)" title="Descartar" class="icon-carrito">💩​</span>
+          <span (click)="agregarAlRecordatorio(p)" title="Recordar" class="icon-carrito">🔔</span>
         </div>
       </div>
-      <p *ngIf="carrito.length === 0" class="empty">Tu carrito está vacío</p>
     </div>
 
-    <div class="cart-footer" *ngIf="carrito.length > 0">
-      <div class="total">
-        <span>Total:</span>
-        <span>{{ calcularTotal() | currency }}</span>
-      </div>
-      <button (click)="mostrarAlertaLogin()" class="checkout-btn">Finalizar Compra</button>
+    <div *ngIf="cart.length === 0" class="empty-state">
+      <img class="empty-state-img" src="img/carrito-vacio.png" alt="Carrito vacío">
+      <p class="empty-state-text">Tu carrito está vacío</p>
     </div>
   </div>
-  
-  <!-- Contenido de recordatorios -->
-  <div class="panel-content" *ngIf="activeTab === 'reminders'">
-    <div class="reminder-grid">
-      <div class="reminder-card" *ngFor="let p of reminders; let i = index">
-        <img [src]="p.images[0]" alt="{{p.title}}">
-        <div class="info">
-          <span class="name">{{ p.title }}</span>
-          <span class="price">{{ p.price | currency }}</span>
-          <div class="item-actions">
-            <span (click)="eliminarDelRecordatorio(i)" class="icon-recordado">🗑️</span>
-            <button (click)="moverACarrito(i)" class="add-to-cart">Añadir</button>
-          </div>
-        </div>
-      </div>
-      <p *ngIf="reminders.length === 0" class="empty">No tienes recordatorios</p>
+
+  <!-- Total fijo abajo -->
+  <div class="cart-total" *ngIf="cart.length > 0">
+    <div class="total-pay">
+      <span>Total:</span>
+      <span>{{ total | currency }}</span>
     </div>
+    <button class="btn-continue" (click)="toggleCart()">SEGUIR COMPRANDO</button>
+    <button class="btn-pay" (click)="pagar()">PAGAR</button>
   </div>
 </div>
 
@@ -68,11 +84,11 @@
   <div class="sidebar">
     <h3>Categorías</h3>
     <ul>
-      
+      <li>👗 Ropa</li>
       <li>📱 Electrónica</li>
       <li>🏠 Hogar</li>
       <li>⚽ Deportes</li>
-      <li>🛒 Carrito {{numeroProductos}}</li>
+      <li>💡​ Ayuda</li> <!--{{numeroProductos}}-->
     </ul>
   </div>
 
@@ -81,20 +97,17 @@
     <app-producto 
     [product]="product"
     *ngFor="let product of visibleProducts" 
-    (agregar)="agregarAlCarrito($event)"
-    (recordarProducto)="agregarAlRecordatorio($event)"
-  >
+    (agregarCarrito)="agregarAlCarrito($event)"
+    (recordarProducto)="agregarAlRecordatorio($event)"> <!--(eliminarProducto)="eliminarProductoDelCarrito($event)"-->
     </app-producto>
   </div>
+
   <div class="load-more">
-    <button *ngIf="products && products.length > 0 && productsToShow < products.length" 
-            (click)="showMore()">
-      Ver más ({{ productsToShow }}/{{ products.length }})
-    </button>
-    <p *ngIf="productsToShow >= products.length && products.length > 0" class="no-more">
-      ¡Has visto todos los productos!
-    </p>
+    <button *ngIf="productsToShow < products.length" (click)="showMore()">Ver más ({{productsToShow}}/{{products.length}})</button>
+    <p *ngIf="productsToShow >= products.length">¡Has visto todos los productos!</p>
   </div>
+</div>
+
 <!-- Enviamos el producto al componente hijo (producto)
 significa que cuando ProductoComponent emita un evento,
 AppComponent ejecutará agregarAlCarrito() con ese producto. -->

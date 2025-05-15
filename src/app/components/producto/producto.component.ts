@@ -17,24 +17,24 @@ export class ProductoComponent {
   // }
 
   @Input() product!: Product; // Recibe los productos
-  @Output() agregar = new EventEmitter<Product>(); // Evento para enviar datos
+  @Output() agregarCarrito = new EventEmitter<Product>(); // Evento para enviar datos
   @Output() recordarProducto = new EventEmitter<Product>();
-  @Output() eliminarProducto = new EventEmitter<number>();
+  // @Output() eliminarProducto = new EventEmitter<number>();
 
   agregarAlCarrito() {
-    this.agregar.emit(this.product); // Envía el producto al padre
-    alert(`¡${this.product.title} agregado al carrito!`);
+    this.agregarCarrito.emit(this.product); // Envía el producto al padre
+    // alert(`¡${this.product.title} agregado al carrito!`);
   }
 
   agregarAlRecordatorio() {
     this.recordarProducto.emit(this.product);
-    alert(`¡${this.product.title} se agrego al recordatorio!`);
+    // alert(`¡${this.product.title} se agrego al recordatorio!`);
   }
 
-  eliminarDelCarrito() { // NO ESTÁ EN USO PRACTICO DE MOMENTO
-    this.eliminarProducto.emit(this.product.id);
-    alert(`¡${this.product.title} se agrego al recordatorio!`);
-  }
+  // eliminarDelCarrito() { // NO ESTÁ EN USO PRACTICO DE MOMENTO
+  //   this.eliminarProducto.emit(this.product.id);
+  //   alert(`¡${this.product.title} se agrego al recordatorio!`);
+  // }
 
   isValidUrl(url: string): boolean {
     try {
