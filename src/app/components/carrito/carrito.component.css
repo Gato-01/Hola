@@ -20,7 +20,7 @@ height: 100vh;
 display: grid;
 grid-template-columns: 1fr 4fr; /* Sidebar 1fr, productos 4fr */
 gap: 20px;
-padding: 60px 20px 20px 20px;
+padding: 90px 20px 20px 20px;
 }
 
 /* *************************** */

@@ -21,10 +21,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
- 
-
-
-// import { HttpClient } from '@angular/common/http'
+import { FormsModule } from '@angular/forms';
 
 // Componente de angular Material
 import {MatExpansionModule} from '@angular/material/expansion';
@@ -58,7 +55,8 @@ import { AyudaComponent } from './components/ayuda/ayuda.component';
     MatToolbarModule,
     MatMenuModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,16 +5,18 @@
   box-sizing: border-box;
   font-family: 'Segoe UI', sans-serif;
 }
-
+ 
 /* Hero Section */
 /* Hero Section Modificado */
 .hero {
-  /* Quitamos el background-image original */
-  color: white;
-  padding: 4rem 5%; /* Reducimos padding para mejor equilibrio */
   text-align: center;
   position: relative;
   overflow: hidden;
+  background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.pexels.com/photos/4144923/pexels-photo-4144923.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+  background-size: cover;
+  background-position: center;
+  padding: 150px 20px 100px 20px;
+  color: white;
 }
 
 .hero-content {
