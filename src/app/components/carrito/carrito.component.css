@@ -60,6 +60,11 @@ color: #444;
 font-size: 1.1rem; /* Añadido tamaño de fuente */
 }
 
+.sidebar li a {
+  text-decoration: none;  /* elimina el subrayado */
+  color: inherit;
+}
+
 .sidebar li:hover {
   background: #f3e5f5;
   transform: translateX(5px);

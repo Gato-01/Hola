@@ -10,11 +10,15 @@
 
 
   <nav class="main-nav">
+    <a mat-button href="http://localhost:3000/index.html" class="nav-button">
+      <mat-icon>public</mat-icon>
+      <span class="button-text">GPT</span>
+    </a>
+
     <a mat-button routerLink="/" class="nav-button">
       <mat-icon>home</mat-icon>
       <span class="button-text">Inicio</span>
     </a>
-
   
     <mat-menu #carritoMenu="matMenu" class="custom-menu">
       <button mat-menu-item routerLink="/carrito" [queryParams]="{category: 'tenis'}">
