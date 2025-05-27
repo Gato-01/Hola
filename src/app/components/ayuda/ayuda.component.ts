@@ -7,25 +7,50 @@ import { Component } from '@angular/core';
   styleUrl: './ayuda.component.css'
 })
 export class AyudaComponent {
-// Aquí puedes agregar propiedades y lógica del componente
+preguntaExpandida: number | null = null;
+  enviando = false;
+  mensajeConfirmacion = '';
+  
+  consulta = {
+    nombre: '',
+    email: '',
+    mensaje: ''
+  };
+
   preguntasFrecuentes = [
     {
       pregunta: '¿Cómo realizo un pedido?',
-      respuesta: 'Puedes realizar tu pedido seleccionando los productos y haciendo clic en el botón "Comprar".'
+      respuesta: 'Puedes realizar pedidos directamente desde nuestra web seleccionando los productos y completando el proceso de compra.'
     },
     {
-      pregunta: '¿Cuáles son los métodos de pago?',
-      respuesta: 'Aceptamos tarjetas de crédito/débito, PayPal y transferencias bancarias.'
+      pregunta: '¿Cómo realizo un pedido?',
+      respuesta: 'Puedes realizar pedidos directamente desde nuestra web seleccionando los productos y completando el proceso de compra.'
     },
     {
-      pregunta: '¿Cuánto tarda el envío?',
-      respuesta: 'El tiempo de envío varía entre 2-5 días hábiles dependiendo de tu ubicación.'
-    }
+      pregunta: '¿Cómo realizo un pedido?',
+      respuesta: 'Puedes realizar pedidos directamente desde nuestra web seleccionando los productos y completando el proceso de compra.'
+    },
+    // ... otras preguntas frecuentes
   ];
-
-  preguntaExpandida: number | null = null;
 
   toggleRespuesta(index: number) {
     this.preguntaExpandida = this.preguntaExpandida === index ? null : index;
+  }
+
+  enviarConsulta() {
+    this.enviando = true;
+    
+    // Simulamos el envío al servidor
+    setTimeout(() => {
+      console.log('Consulta enviada:', this.consulta);
+      this.enviando = false;
+      this.mensajeConfirmacion = 'Tu consulta ha sido enviada. Te responderemos a ' + this.consulta.email + ' en 24-48 horas.';
+      
+      // Resetear el formulario después de 5 segundos
+      setTimeout(() => {
+        this.mensajeConfirmacion = '';
+        this.consulta = { nombre: '', email: '', mensaje: '' };
+      }, 5000);
+    }, 1500);
   }
 }

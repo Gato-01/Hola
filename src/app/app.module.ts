@@ -19,9 +19,13 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatMenuModule } from '@angular/material/menu';
+
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatMenuModule } from '@angular/material/menu';
+
+
 
 // Componente de angular Material
 import {MatExpansionModule} from '@angular/material/expansion';
@@ -34,13 +38,13 @@ import { AyudaComponent } from './components/ayuda/ayuda.component';
     ProductoComponent,
     CarritoComponent,
     NavComponent,
-     SesionComponent,
-     HomeComponent,
-     CarritoProductoComponent,
-     RegistroComponent,
-     PreguntasFrecuentesComponent,
-     TruncatePipe,
-     AyudaComponent
+    SesionComponent,
+    HomeComponent,
+    CarritoProductoComponent,
+    RegistroComponent,
+    PreguntasFrecuentesComponent,
+    TruncatePipe,
+    AyudaComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +60,8 @@ import { AyudaComponent } from './components/ayuda/ayuda.component';
     MatMenuModule,
     MatButtonModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
+        ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

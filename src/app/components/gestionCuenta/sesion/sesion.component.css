@@ -78,3 +78,7 @@ mat-spinner {
   margin: 0 auto;
 }
 
+.spinner-border {
+  vertical-align: middle;
+  margin-right: 5px;
+}
