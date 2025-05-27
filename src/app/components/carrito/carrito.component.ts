@@ -114,11 +114,6 @@ export class CarritoComponent {
   private saveCart() {
     localStorage.setItem('cartProducts', JSON.stringify(this.cart));
   }
-
-  // *****************
-  // MODAL DE CARRITO
-  // *****************
-
   showCart = false;
 
   toggleCart() {
@@ -209,16 +204,18 @@ export class CarritoComponent {
     alert(`¡${product.title} ha sido olvidado!`);
     this.saveReminders();
   }
+  
+pagar() {
+  // Guarda el estado actual en localStorage antes de redirigir
+  localStorage.setItem('pendingPurchase', JSON.stringify({
+    cart: this.cart,
+    reminders: this.reminders
+  }));
 
-  // *****
-  // PAGAR
-  // *****
-
-  pagar() {
-    const confirmacion = confirm('Para finalizar la compra debes iniciar sesión. ¿Deseas ir a la página de login?');
-    
-    if(confirmacion) {
-      this.router.navigate(['/sesion']);
-    }
+  const confirmacion = confirm('Para finalizar la compra debes iniciar sesión. ¿Deseas ir a la página de login?');
+  
+  if(confirmacion) {
+    this.router.navigate(['/sesion']);
   }
+}
 }

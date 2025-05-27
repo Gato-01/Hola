@@ -26,42 +26,47 @@ export class SesionComponent {
     });
   }
 
-  onSubmit() {
-    if (this.loginForm.valid && !this.isLoading) {
-      this.isLoading = true;
-      this.errorMessage = '';
-      
-      const { email, password } = this.loginForm.value;
+onSubmit() {
+  if (this.loginForm.valid) {
+    const { email, password } = this.loginForm.value;
 
-      this.apiService.login({ email, password }).subscribe({
-        next: (response) => {
-          Swal.fire({
-            title: '¡Bienvenido!',
-            text: `Has iniciado sesión correctamente como ${response.user.email}`,
-            icon: 'success',
-            confirmButtonText: 'Continuar',
-            timer: 3000, // Se cierra automáticamente después de 3 segundos
-            timerProgressBar: true
-          }).then(() => {
-            localStorage.setItem('token', response.token);
-            localStorage.setItem('userEmail', response.user.email);
-            this.router.navigate(['/dashboard']);
-          });
-        },
-        error: (error) => {
-          this.isLoading = false;
-          this.errorMessage = error.error?.message || 'Error al iniciar sesión';
-          Swal.fire({
-            title: 'Error',
-            text: this.errorMessage,
-            icon: 'error',
-            confirmButtonText: 'Entendido'
-          });
-        },
-        complete: () => {
-          this.isLoading = false;
+    this.apiService.login({ email, password }).subscribe({
+      next: (response) => {
+        // Recupera los datos del carrito pendiente
+        const pendingPurchase = localStorage.getItem('pendingPurchase');
+        let purchaseData = { cart: [], reminders: [] };
+        
+        if (pendingPurchase) {
+          purchaseData = JSON.parse(pendingPurchase);
+          localStorage.removeItem('pendingPurchase'); // Limpia el storage
         }
-      });
-    }
+
+        // Guarda usuario Y los datos del carrito
+        localStorage.setItem('currentUser', JSON.stringify({
+          ...response.user,
+          cart: purchaseData.cart,
+          reminders: purchaseData.reminders
+        }));
+
+        Swal.fire({
+          title: '¡Bienvenido!',
+          text: `Bienvenido ${response.user.email}`,
+          icon: 'success',
+          confirmButtonText: 'Continuar con mi compra',
+          showCancelButton: true,
+          cancelButtonText: 'Ir al inicio'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.router.navigate(['/carritoProducto']);
+          } else {
+            this.router.navigate(['/carrito']);
+          }
+        });
+      },
+      error: (error) => {
+        // Manejo de errores
+      }
+    });
   }
+}
 }

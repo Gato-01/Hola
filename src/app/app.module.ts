@@ -27,6 +27,7 @@ import { MatMenuModule } from '@angular/material/menu';
 
 
 
+
 // Componente de angular Material
 import {MatExpansionModule} from '@angular/material/expansion';
 import { TruncatePipe } from './shared/pipes/truncate.pipe';
@@ -61,7 +62,8 @@ import { AyudaComponent } from './components/ayuda/ayuda.component';
     MatButtonModule,
     MatIconModule,
     FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,78 @@
+ /* Fuente moderna */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f0f2f5;
+}
+
+/* Contenedor principal de la tarjeta */
+.card {
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  max-width: 400px;
+  margin: auto;
+  background: #fff;
+}
+
+/* Cabecera con fondo degradado */
+.card-header {
+  background: linear-gradient(135deg, #1e87f0, #2979ff);
+  color: white;
+  padding: 1.2rem;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+/* Cuerpo de la tarjeta */
+.card-body {
+  padding: 1.5rem;
+}
+
+/* Etiquetas */
+.form-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #333;
+  margin-bottom: 0.4rem;
+}
+
+/* Inputs y select */
+.form-control,
+.form-select {
+  border: none;
+  border-radius: 12px;
+  background-color: #f1f3f5;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  box-shadow: inset 0 0 2px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s;
+}
+
+.form-control:focus,
+.form-select:focus {
+  box-shadow: 0 0 0 2px rgba(30, 135, 240, 0.4);
+  outline: none;
+}
+
+/* Botón */
+.btn-primary {
+  background-color: #1e87f0;
+  border: none;
+  padding: 0.9rem;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 12px;
+  width: 100%;
+  transition: background 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-primary:disabled {
+  background-color: #90c2ff;
+  cursor: not-allowed;
+}

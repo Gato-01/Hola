@@ -1,1 +1,81 @@
-<p>carrito-producto works!</p>
+<div class="container py-4">
+  <!-- Sección de bienvenida -->
+  <div class="alert alert-success" *ngIf="currentUser">
+    <h4>¡Hola {{ currentUser.email }}!</h4>
+    <p>Continúa con tu compra pendiente</p>
+  </div>
+
+  <div class="row">
+    <!-- Carrito -->
+    <div class="col-md-8">
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+          <h5>Tu Carrito</h5>
+        </div>
+        <div class="card-body">
+          <div *ngFor="let item of cart" class="mb-3 border-bottom pb-3">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h6>{{ item.title }}</h6>
+                <p class="mb-1">Precio: ${{ item.price }}</p>
+                <div class="d-flex align-items-center">
+                  <button class="btn btn-sm btn-outline-secondary" (click)="decreaseQuantity(item)">-</button>
+                  <span class="mx-2">{{ item.quantity || 1 }}</span>
+                  <button class="btn btn-sm btn-outline-secondary" (click)="increaseQuantity(item)">+</button>
+                </div>
+              </div>
+              <img [src]="item.images[0]" alt="{{ item.title }}" style="height: 80px;" *ngIf="item.images?.length">
+            </div>
+          </div>
+          <div class="text-end fw-bold fs-5">
+            Total: ${{ total | number:'1.2-2' }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Recordatorios -->
+      <div class="card" *ngIf="reminders.length > 0">
+        <div class="card-header bg-info text-white">
+          <h5>Productos para recordar</h5>
+        </div>
+        <div class="card-body">
+          <div *ngFor="let item of reminders" class="mb-3">
+            <h6>{{ item.title }}</h6>
+            <button class="btn btn-sm btn-primary" (click)="moveToCart(item)">
+              Añadir al carrito
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div class="card mt-3">
+  <div class="card-header bg-primary text-white">
+    <h5>Finalizar Compra</h5>
+  </div>
+  <div class="card-body">
+    <!-- Método de Pago Básico -->
+    <div class="mb-3">
+    <label class="form-label">Método de Pago</label>
+    <select class="form-select" [(ngModel)]="selectedPaymentMethod">
+        <option value="credit">Tarjeta de Crédito/Débito</option>
+        <option value="paypal">PayPal</option>
+        <option value="transfer">Transferencia Bancaria</option>
+    </select>
+    </div>
+
+    <!-- Solo muestra campos de tarjeta si selecciona esa opción -->
+    <div *ngIf="selectedPaymentMethod === 'credit'" class="mb-3">
+    <label class="form-label">Número de Tarjeta</label>
+    <input type="text" class="form-control" [(ngModel)]="cardNumber" placeholder="1234 5678 9012 3456">
+    </div>
+
+            <button class="btn btn-primary w-100 mt-2" 
+                (click)="openAddressModal()"
+                    [disabled]="selectedPaymentMethod === 'credit' && !cardNumber">
+            Continuar con el Envío
+            </button>
+        </div>
+        </div>
+    </div>
+</div>
